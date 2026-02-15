@@ -5,6 +5,18 @@
 **Status**: Draft
 **Input**: User description: "We are going to create a next.js application. This will be a song book application for the polish version of the SDA hymnal. There is a markdown file at /Users/stefanrusek/Downloads/spiewajmy_panu_2005.md this file will be imported and read into json. The table of contents in the document also includes a categorization scheme and groupings by number. The app will have a search box on the home pages, as well as a list of groupings. The search will search by number and by title and by song contents. for now a single case insenstive sub string search is fine. later we might add an index or something. /song/:number should load an individual song. Each song has a key, a title, sometimes an author or tranlator, verses, and sometimes a chorus (in pl refren)."
 
+## Clarifications
+
+### Session 2026-02-15
+
+- Q: Should search ignore diacritical marks in addition to case? → A: Yes, search must ignore diacritical marks (e.g., "o" matches "ó", "a" matches "ą")
+- Q: How should hymn data be stored for runtime use? → A: Create JSON data file during implementation; keep original markdown file for future reference and re-import
+- Q: What language should the user interface text be in? → A: Bilingual - Support both Polish and English with language toggle
+- Q: When should search execute as the user types? → A: Debounced real-time - Search executes after user pauses typing (e.g., 300ms delay)
+- Q: Should the application work offline? → A: Basic offline (PWA) - Cache hymn data for offline viewing after first visit
+- Q: How should categories be displayed on the home page? → A: Expandable/collapsible accordion with responsive layout: three columns on desktop, one column on mobile
+- Q: Should hymns include category information for navigation? → A: Yes, each hymn must include its major category and subcategory references to enable navigation to other hymns in the same category/subcategory
+
 ## Root Cause Analysis *(mandatory)*
 
 ### Problem Statement
@@ -79,6 +91,9 @@ A church member knows the hymn number being announced and needs to quickly view 
 1. **Given** a user navigates to /song/1, **When** the page loads, **Then** the hymn displays with number, title, key signature, verses, and any chorus or author information
 2. **Given** a user navigates to /song/250, **When** the page loads, **Then** the specific hymn #250 displays correctly
 3. **Given** a user navigates to /song/999 (invalid number), **When** the page loads, **Then** an appropriate "song not found" message displays
+4. **Given** a user has previously visited the application online, **When** they access /song/1 while offline, **Then** the hymn displays from cached data without internet connection
+5. **Given** a user is viewing a hymn, **When** the page displays category information, **Then** navigation links to "View all hymns in [category name]" and "View all hymns in [subcategory name]" are visible
+6. **Given** a user clicks on a category navigation link from a hymn page, **When** the category page loads, **Then** all hymns in that category display with the current hymn highlighted or indicated
 
 ---
 
@@ -92,9 +107,13 @@ A worship leader or church member wants to find hymns suitable for a specific pu
 
 **Acceptance Scenarios**:
 
-1. **Given** a user visits the home page, **When** the page loads, **Then** a list of all major categories (I-IX) and subcategories (1-40) displays
-2. **Given** a user clicks on a category, **When** the category opens, **Then** all hymn numbers and titles within that grouping display
-3. **Given** a user clicks on a hymn from the category list, **When** the hymn link is clicked, **Then** the user navigates to that specific hymn page
+1. **Given** a user visits the home page on desktop, **When** the page loads, **Then** major categories (I-IX) display in three columns as collapsed accordion sections
+2. **Given** a user visits the home page on mobile, **When** the page loads, **Then** major categories display in one column as collapsed accordion sections
+3. **Given** a user clicks on a major category, **When** the category expands, **Then** all subcategories within that category display with their names and hymn number ranges
+4. **Given** a user clicks on a subcategory, **When** the subcategory opens, **Then** all hymn numbers and titles within that grouping display
+5. **Given** a user clicks on a hymn from the category list, **When** the hymn link is clicked, **Then** the user navigates to that specific hymn page
+6. **Given** a user clicks the language toggle, **When** switching from Polish to English, **Then** all UI text (buttons, labels, category names) displays in English while hymn content remains in Polish
+7. **Given** a user has selected English, **When** they return to the site later, **Then** the interface remains in English (language preference persists)
 
 ---
 
@@ -108,10 +127,12 @@ A church member remembers part of a hymn's title or some lyrics but doesn't know
 
 **Acceptance Scenarios**:
 
-1. **Given** a user types "Jezu" in the search box, **When** the search executes, **Then** all hymns with "jezu" in title or lyrics display (case-insensitive)
-2. **Given** a user types "123" in the search box, **When** the search executes, **Then** hymn #123 appears in results
-3. **Given** a user types text with no matches, **When** the search executes, **Then** a "no results found" message displays
-4. **Given** search results are displayed, **When** a user clicks on a result, **Then** the user navigates to that hymn page
+1. **Given** a user types "Jezu" in the search box, **When** the user pauses typing for 300ms, **Then** all hymns with "jezu" in title or lyrics display (case-insensitive)
+2. **Given** a user types "Bog" (without diacritics) in the search box, **When** the user pauses typing, **Then** hymns containing "Bóg", "Bog", "bóg", or "bog" all appear in results (diacritic-insensitive)
+3. **Given** a user types "123" in the search box, **When** the user pauses typing, **Then** hymn #123 appears in results
+4. **Given** a user is typing continuously, **When** they have not paused for 300ms, **Then** search does not execute yet (debounced behavior prevents excessive processing)
+5. **Given** a user types text with no matches, **When** the search executes, **Then** a "no results found" message displays
+6. **Given** search results are displayed, **When** a user clicks on a result, **Then** the user navigates to that hymn page
 
 ---
 
@@ -122,7 +143,10 @@ A church member remembers part of a hymn's title or some lyrics but doesn't know
 - What happens when a user searches with very common Polish words that appear in many hymns?
 - How does the system handle hymns with no author or chorus information?
 - What happens on slow network connections - is there loading feedback?
-- How are Polish characters (ą, ć, ę, ł, ń, ó, ś, ź, ż) handled in search?
+- Polish diacritical marks (ą, ć, ę, ł, ń, ó, ś, ź, ż) in search: Search normalizes both query and content by removing diacritics, so users can type with or without them and still find matches
+- What happens when a user tries to access a hymn offline that wasn't previously cached?
+- How does the application indicate to users when they are offline vs online?
+- What happens if cached data becomes stale or corrupted?
 
 ## High-Level Sequence Diagrams *(mandatory)*
 
@@ -200,18 +224,33 @@ sequenceDiagram
 
 ### Functional Requirements
 
-- **FR-001**: System MUST import hymnal content from the markdown file and convert it to structured JSON format
+- **FR-001**: Hymnal content MUST be converted from the source markdown file to a structured JSON format as an implementation task; the application will use this JSON data at runtime; the original markdown file must be preserved for future reference and re-import
 - **FR-002**: System MUST parse hymn numbers, titles, key signatures, verses, choruses (refren), and author/translator information from the markdown
 - **FR-003**: System MUST parse and store the table of contents structure with all 9 major categories and 40 subcategories with their number ranges
 - **FR-004**: System MUST provide a route /song/:number that displays an individual hymn by its number
 - **FR-005**: System MUST display all hymn information including number, title, key, verses, chorus (if present), and author (if present)
 - **FR-006**: Home page MUST display a search box prominently
-- **FR-007**: Home page MUST display a list of all categories and subcategories from the table of contents
-- **FR-008**: System MUST perform case-insensitive substring search across hymn numbers, titles, and lyrics
+- **FR-007**: Home page MUST display all major categories (I-IX) as expandable/collapsible accordion sections
+- **FR-007a**: Category display MUST be responsive: three columns on desktop (≥768px width), one column on mobile (<768px width)
+- **FR-007b**: When a major category is clicked, it MUST expand to show its subcategories
+- **FR-007c**: Subcategories MUST display their name and hymn number range (e.g., "Uwielbienie Boga i dziekczynienie (1-61)")
+- **FR-008**: System MUST perform case-insensitive and diacritic-insensitive substring search across hymn numbers, titles, and lyrics (e.g., searching "jezu" matches "Jezu", "jeżu"; searching "Bog" matches "Bóg", "bog")
+- **FR-008a**: Search MUST execute with debounced real-time behavior, triggering after user pauses typing (approximately 300ms delay)
 - **FR-009**: Search results MUST display matching hymns with their numbers and titles
 - **FR-010**: Users MUST be able to navigate from search results or category listings to individual hymn pages
 - **FR-011**: System MUST handle invalid song numbers gracefully with appropriate error messages
 - **FR-012**: System MUST preserve Polish characters correctly in all display and search operations
+- **FR-013**: System MUST support bilingual interface with Polish and English language options
+- **FR-014**: System MUST provide a language toggle that allows users to switch between Polish and English UI text
+- **FR-015**: Language selection MUST persist across user sessions (e.g., via browser storage)
+- **FR-016**: Hymn content MUST remain in Polish regardless of selected UI language
+- **FR-017**: Application MUST function as a Progressive Web App (PWA) with offline capabilities
+- **FR-018**: System MUST cache all hymn data after initial load to enable offline viewing
+- **FR-019**: Application MUST display all previously viewed hymns while offline
+- **FR-020**: Search functionality MUST work offline using cached hymn data
+- **FR-021**: Each hymn MUST include references to its major category and subcategory
+- **FR-022**: Hymn detail page MUST provide navigation links to view all hymns in the same category or subcategory
+- **FR-023**: Category/subcategory navigation from a hymn MUST show the hymn's position within its category (e.g., "Hymn 5 of 61 in this category")
 
 ### Key Entities
 
@@ -223,6 +262,9 @@ sequenceDiagram
   - Chorus/Refren (optional repeated section)
   - Author/Translator (optional attribution)
   - Full text content (for search)
+  - Major category reference (I-IX, e.g., "III. POWTORNE PRZYJSCIE JEZUSA")
+  - Subcategory reference (number and name, e.g., "12. Przygotowanie i oczekiwanie")
+  - Purpose: Category references enable navigation from a hymn to view all other hymns in the same category or subcategory
 
 - **Category**: Represents a grouping from the table of contents with attributes:
   - Major category (I-IX, e.g., "NABOZENSTWO", "ZYCIE I DZIALALNOSC JEZUSA")
@@ -247,3 +289,5 @@ sequenceDiagram
 - **SC-005**: Application displays correctly on mobile devices (phones and tablets) as well as desktop browsers
 - **SC-006**: Polish characters display correctly in all contexts without encoding issues
 - **SC-007**: Users successfully complete their primary task (viewing a hymn) on first attempt 90% of the time
+- **SC-008**: Previously viewed hymns load within 1 second when accessed offline
+- **SC-009**: All hymn data is cached and available offline after initial application load
