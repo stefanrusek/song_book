@@ -1,31 +1,37 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version: 1.0.0 → 1.1.0 (MINOR bump - new principle added)
+Version: 1.1.0 → 1.2.0 (MINOR bump - materially expanded technology constraints)
 Type: Amendment
 Date: 2026-02-15
 
-Added Principles:
-- VI. Root Cause Analysis (user requirement - spec research phase)
+Added Sections:
+- Monorepo and Package Management (under Technology Constraints)
 
-Modified Principles:
-- None
+Modified Sections:
+- Technology Constraints: Required Stack - Changed package manager from npm to pnpm 10+, added monorepo requirement
+- Development Workflow: Code Organization - Restructured to show monorepo workspace layout
 
-Removed Principles:
+Removed Sections:
 - None
 
 Template Updates:
-✅ spec-template.md - added mandatory "Root Cause Analysis" section with systematic analysis framework
-⚠️ plan-template.md - no changes required (root cause analysis is spec-phase activity)
-⚠️ tasks-template.md - no changes required (root cause analysis is spec-phase activity)
+⚠️ spec-template.md - no changes required (structure is defined in constitution, not template)
+⚠️ plan-template.md - no changes required (structure is defined in constitution, not template)
+⚠️ tasks-template.md - no changes required (structure is defined in constitution, not template)
 
 Follow-up Actions:
-- None
+- Create pnpm-workspace.yaml in repository root
+- Restructure project to monorepo layout with packages/ directory
+- Update package.json to use pnpm scripts
+- Remove package-lock.json if present, ensure pnpm-lock.yaml exists
+- Update README.md to reference pnpm installation and monorepo structure
 
 Deferred Items:
 - None
 
 Previous Versions:
+- 1.1.0 (2026-02-15): Added Root Cause Analysis principle
 - 1.0.0 (2026-02-15): Initial constitution with five core principles
 -->
 
@@ -131,22 +137,43 @@ All commits MUST follow [Conventional Commits](https://www.conventionalcommits.o
 
 ### Code Organization
 
-```
-components/           # UI components only (presentational)
-├── layout/          # Header, footer, navigation
-├── song/            # Song-related components
-├── common/          # Shared UI components (buttons, inputs)
-└── providers/       # Context providers for global state
+**Monorepo Structure** - The project uses pnpm workspaces to manage multiple packages:
 
-app/                 # Next.js App Router pages (containers)
-├── songs/           # Song pages with data fetching and logic
-├── api/             # API routes
-└── layout.tsx       # Root layout
-
-lib/                 # Utility functions and shared logic
-hooks/               # Custom React hooks for data/state logic
-types/               # Shared TypeScript type definitions
 ```
+packages/
+├── web/                    # Main Next.js web application
+│   ├── app/               # Next.js App Router pages (containers)
+│   │   ├── songs/         # Song pages with data fetching and logic
+│   │   ├── api/           # API routes
+│   │   └── layout.tsx     # Root layout
+│   ├── components/        # UI components only (presentational)
+│   │   ├── layout/        # Header, footer, navigation
+│   │   ├── song/          # Song-related components
+│   │   ├── common/        # Shared UI components (buttons, inputs)
+│   │   └── providers/     # Context providers for global state
+│   ├── hooks/             # Custom React hooks for data/state logic
+│   └── lib/               # Web-specific utilities
+│
+├── shared/                # Shared code across packages
+│   ├── types/             # Shared TypeScript type definitions
+│   ├── utils/             # Shared utility functions
+│   └── constants/         # Shared constants and configurations
+│
+└── [future-packages]/     # Additional packages as needed
+    ├── api/               # Backend API service (if separated)
+    ├── mobile/            # Mobile application (if added)
+    └── cli/               # CLI tools (if needed)
+
+pnpm-workspace.yaml        # pnpm workspace configuration
+package.json               # Root package.json
+```
+
+**Workspace Guidelines**:
+- Each package MUST have its own `package.json` with unique name
+- Shared dependencies MUST be installed at workspace root when possible
+- Package-specific dependencies MUST be in package's own `package.json`
+- Use workspace protocol for inter-package dependencies: `"@songbook/shared": "workspace:*"`
+- All packages MUST follow the same naming, testing, and code quality standards
 
 ### File Naming Conventions
 
@@ -165,7 +192,8 @@ types/               # Shared TypeScript type definitions
 - **Language**: TypeScript 5+ with strict mode enabled
 - **UI Library**: React 19+
 - **Styling**: Tailwind CSS 4+
-- **Package Manager**: npm (per package.json)
+- **Package Manager**: pnpm 10+ (npm and yarn are forbidden)
+- **Project Structure**: Monorepo (using pnpm workspaces)
 
 ### Server vs Client Components
 
@@ -178,6 +206,29 @@ types/               # Shared TypeScript type definitions
 - **Component Tests**: For presentational components with mock props
 - **Integration Tests**: For page-level flows and API interactions
 - **Contract Tests**: For API endpoints and data contracts
+
+### Monorepo and Package Management
+
+**Package Manager Requirements:**
+- **MUST** use pnpm version 10 or greater
+- **MUST NOT** use npm or yarn (forbidden)
+- Lock file MUST be `pnpm-lock.yaml` (never `package-lock.json` or `yarn.lock`)
+- All installation commands MUST use `pnpm install` (never `npm install` or `yarn install`)
+- Scripts MUST use `pnpm` commands: `pnpm dev`, `pnpm build`, `pnpm test`
+
+**Monorepo Requirements:**
+- Project MUST be structured as a pnpm workspace monorepo
+- Root `pnpm-workspace.yaml` MUST define workspace packages
+- Each workspace package MUST have its own `package.json` with unique name
+- Package naming MUST follow convention: `@songbook/[package-name]`
+
+**Dependency Management:**
+- Shared dependencies (React, TypeScript, etc.) SHOULD be installed at workspace root
+- Package-specific dependencies MUST be installed in package's own directory
+- Inter-package dependencies MUST use workspace protocol: `"@songbook/shared": "workspace:*"`
+- Version ranges SHOULD be consistent across packages for shared dependencies
+
+**Rationale**: pnpm provides superior disk efficiency through content-addressable storage, stricter dependency resolution preventing phantom dependencies, faster installation times, and built-in monorepo support. Monorepo structure enables code sharing, consistent tooling, atomic commits across packages, and simplified dependency management while maintaining clear package boundaries.
 
 ## Governance
 
@@ -205,4 +256,4 @@ This constitution supersedes all other development practices for the Song Book p
 
 ### Version Control
 
-**Version**: 1.1.0 | **Ratified**: 2026-02-15 | **Last Amended**: 2026-02-15
+**Version**: 1.2.0 | **Ratified**: 2026-02-15 | **Last Amended**: 2026-02-15
