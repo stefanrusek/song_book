@@ -31,8 +31,8 @@ description: "Task list for fixing rule and constitutional violations"
 - ESLint configured consistently across packages
 - Ready for Phase 2 test file creation
 
-- [ ] T001 Update jest.config.js coverage thresholds in packages/web/jest.config.js (lines 18-24: change 80→100 for statements, branches, functions, lines)
-- [ ] T002 Create ESLint configuration in packages/shared/eslint.config.mjs (copy from packages/web/eslint.config.mjs)
+- [x] T001 Update jest.config.js coverage thresholds in packages/web/jest.config.js (lines 18-24: change 80→100 for statements, branches, functions, lines)
+- [x] T002 Create ESLint configuration in packages/shared/eslint.config.mjs (copy from packages/web/eslint.config.mjs)
 
 **Checkpoint**: Configuration complete - ready for test file creation
 
