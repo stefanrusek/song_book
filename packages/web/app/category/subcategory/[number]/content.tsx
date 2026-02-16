@@ -3,6 +3,7 @@
 import { useHymns, useCategories } from '@/providers/hymn-provider'
 import { useLanguage } from '@/providers/language-provider'
 import { SongCard } from '@/components/song/song-card'
+import type { SubcategoryInfo } from '@songbook/shared/types'
 
 type SubcategoryPageContentProps = {
   subcategoryNumber: number
@@ -20,7 +21,7 @@ export function SubcategoryPageContent({
   const { t } = useLanguage()
 
   // Find the subcategory
-  let subcategoryInfo: any = null
+  let subcategoryInfo: SubcategoryInfo | null = null
   let categoryName = ''
 
   for (const category of categories) {

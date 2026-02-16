@@ -62,6 +62,7 @@ export type TranslationDictionary = {
   song: {
     verse: string
     chorus: string
+    key: string
     author: string
     translator: string
     category: string

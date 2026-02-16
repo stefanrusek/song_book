@@ -9,7 +9,7 @@ type SongPageContentProps = {
   numberStr: string
 }
 
-export function SongPageContent({ number, numberStr }: SongPageContentProps) {
+export function SongPageContent({ number }: SongPageContentProps) {
   const { isLoading, error: dataError } = useHymnLoading()
   const { t } = useLanguage()
 
