@@ -1,0 +1,209 @@
+name: PR Quality Gates
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [24.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run linter
+        run: pnpm lint
+        continue-on-error: false
+
+      - name: Run tests
+        run: pnpm test
+        continue-on-error: false
+
+      - name: Check coverage
+        run: pnpm coverage
+        continue-on-error: false
+
+      - name: Upload coverage to codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage/coverage-final.json
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+
+  type-check:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [24.x]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: TypeScript strict mode check
+        run: pnpm exec tsc --noEmit --strict
+        working-directory: packages/web
+
+  violation-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check for Rule 110 violations (interfaces)
+        run: |
+          # Check for interface declarations (except in test files)
+          INTERFACES=$(find packages -type f \( -name "*.ts" -o -name "*.tsx" \) ! -path "*/node_modules/*" ! -path "*/__tests__/*" ! -path "*.test.*" -exec grep -l "^export interface\|^interface " {} \; 2>/dev/null || true)
+          if [ -n "$INTERFACES" ]; then
+            echo "❌ Found interface declarations (Rule 110 violation - use 'type' instead):"
+            echo "$INTERFACES"
+            exit 1
+          else
+            echo "✅ No interface violations found (Rule 110)"
+          fi
+
+      - name: Check for Rule 410 violations (100% coverage requirement)
+        run: |
+          # Verify jest.config files have 100% thresholds
+          echo "Checking jest.config.js files for 100% coverage thresholds..."
+
+          for config in packages/*/jest.config.js; do
+            if [ -f "$config" ]; then
+              echo "Checking $config..."
+              if grep -q "statements.*100\|100.*statements" "$config" && \
+                 grep -q "branches.*100\|100.*branches" "$config" && \
+                 grep -q "functions.*100\|100.*functions" "$config" && \
+                 grep -q "lines.*100\|100.*lines" "$config"; then
+                echo "✅ $config has 100% coverage thresholds"
+              else
+                echo "❌ $config missing 100% coverage thresholds (Rule 410 violation)"
+                exit 1
+              fi
+            fi
+          done
+
+      - name: Check for Rule 510 violations (Node.js 24 requirement)
+        run: |
+          # Check .nvmrc or package.json for Node.js 24 requirement
+          if [ -f ".nvmrc" ]; then
+            NODE_VERSION=$(cat .nvmrc | grep -oE "[0-9]+")
+            if [ "$NODE_VERSION" -ge 24 ]; then
+              echo "✅ Node.js version requirement met (Rule 510)"
+            else
+              echo "❌ .nvmrc specifies Node.js < 24 (Rule 510 violation)"
+              exit 1
+            fi
+          else
+            echo "⚠️  No .nvmrc file found, skipping Node.js version check"
+          fi
+
+      - name: Check for Rule 520 violations (pnpm 10+ requirement)
+        run: |
+          # Check package.json for pnpm version requirement
+          if grep -q "\"pnpm\"\s*:\s*\">=[0-9]*10" package.json || grep -q "\"packageManager\"\s*:\s*\"pnpm@[0-9]*10" package.json; then
+            echo "✅ pnpm 10+ requirement documented (Rule 520)"
+          else
+            echo "⚠️  pnpm 10+ requirement not explicitly documented in package.json (Rule 520)"
+          fi
+
+      - name: Check for Constitution violations (documentation)
+        run: |
+          # Check for critical documentation files
+          echo "Checking documentation files..."
+
+          VIOLATIONS=0
+
+          if [ ! -f "CLAUDE.md" ]; then
+            echo "❌ Missing CLAUDE.md (Constitution documentation)"
+            VIOLATIONS=$((VIOLATIONS + 1))
+          else
+            echo "✅ CLAUDE.md exists"
+          fi
+
+          if [ ! -f ".specify/memory/constitution.md" ]; then
+            echo "❌ Missing constitution.md"
+            VIOLATIONS=$((VIOLATIONS + 1))
+          else
+            echo "✅ Constitution documentation exists"
+          fi
+
+          if [ ! -f ".claude/rules/410-testing-and-quality-gates.md" ]; then
+            echo "❌ Missing Rule 410 documentation"
+            VIOLATIONS=$((VIOLATIONS + 1))
+          else
+            echo "✅ Rule 410 documentation exists"
+          fi
+
+          if [ ! -f ".claude/rules/110-typescript.md" ]; then
+            echo "❌ Missing Rule 110 documentation"
+            VIOLATIONS=$((VIOLATIONS + 1))
+          else
+            echo "✅ Rule 110 documentation exists"
+          fi
+
+          if [ $VIOLATIONS -gt 0 ]; then
+            echo "❌ Found $VIOLATIONS documentation violations (Constitution)"
+            exit 1
+          fi
+
+          echo "✅ All constitutional documentation requirements met"

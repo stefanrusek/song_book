@@ -1,0 +1,193 @@
+name: Violation Check
+
+on:
+  push:
+    branches: [main, develop]
+  schedule:
+    # Run daily at 00:00 UTC
+    - cron: '0 0 * * *'
+
+jobs:
+  check-violations:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check Rule 110 - TypeScript Standards
+        run: |
+          echo "🔍 Checking Rule 110: TypeScript Standards (prefer 'type' over 'interface')"
+
+          VIOLATION_COUNT=0
+
+          # Check for interface declarations in source files (exclude tests)
+          while IFS= read -r file; do
+            if grep -q "^export interface\|^interface " "$file"; then
+              echo "  ⚠️  Found interface in: $file"
+              VIOLATION_COUNT=$((VIOLATION_COUNT + 1))
+            fi
+          done < <(find packages -type f \( -name "*.ts" -o -name "*.tsx" \) \
+            ! -path "*/node_modules/*" \
+            ! -path "*/__tests__/*" \
+            ! -name "*.test.ts" \
+            ! -name "*.test.tsx" \
+            2>/dev/null)
+
+          if [ $VIOLATION_COUNT -gt 0 ]; then
+            echo "  ❌ Found $VIOLATION_COUNT Rule 110 violations"
+          else
+            echo "  ✅ No Rule 110 violations found"
+          fi
+
+      - name: Check Rule 410 - Testing and Quality Gates
+        run: |
+          echo "🔍 Checking Rule 410: 100% Code Coverage Requirement"
+
+          VIOLATION_COUNT=0
+
+          # Check all jest.config files
+          for config in packages/*/jest.config.js; do
+            if [ -f "$config" ]; then
+              PKG=$(basename $(dirname "$config"))
+
+              # Extract threshold values
+              if ! grep -q "statements.*:\s*100\|100\s*[,}]" "$config"; then
+                echo "  ⚠️  $PKG: Missing 100% statements threshold"
+                VIOLATION_COUNT=$((VIOLATION_COUNT + 1))
+              fi
+              if ! grep -q "branches.*:\s*100\|100\s*[,}]" "$config"; then
+                echo "  ⚠️  $PKG: Missing 100% branches threshold"
+                VIOLATION_COUNT=$((VIOLATION_COUNT + 1))
+              fi
+              if ! grep -q "functions.*:\s*100\|100\s*[,}]" "$config"; then
+                echo "  ⚠️  $PKG: Missing 100% functions threshold"
+                VIOLATION_COUNT=$((VIOLATION_COUNT + 1))
+              fi
+              if ! grep -q "lines.*:\s*100\|100\s*[,}]" "$config"; then
+                echo "  ⚠️  $PKG: Missing 100% lines threshold"
+                VIOLATION_COUNT=$((VIOLATION_COUNT + 1))
+              fi
+            fi
+          done
+
+          if [ $VIOLATION_COUNT -gt 0 ]; then
+            echo "  ❌ Found $VIOLATION_COUNT Rule 410 violations"
+          else
+            echo "  ✅ All jest configs have 100% coverage thresholds"
+          fi
+
+      - name: Check Rule 510 - Node.js Version Management
+        run: |
+          echo "🔍 Checking Rule 510: Node.js 24 Requirement"
+
+          VIOLATION_COUNT=0
+
+          if [ -f ".nvmrc" ]; then
+            NODE_VERSION=$(cat .nvmrc | grep -oE "[0-9]+")
+            if [ "$NODE_VERSION" -lt 24 ]; then
+              echo "  ⚠️  .nvmrc specifies Node.js $NODE_VERSION (require 24+)"
+              VIOLATION_COUNT=$((VIOLATION_COUNT + 1))
+            else
+              echo "  ✅ .nvmrc specifies Node.js $NODE_VERSION (>= 24)"
+            fi
+          else
+            echo "  ⚠️  No .nvmrc file found"
+          fi
+
+          if [ $VIOLATION_COUNT -gt 0 ]; then
+            echo "  ❌ Found $VIOLATION_COUNT Rule 510 violations"
+          fi
+
+      - name: Check Rule 520 - pnpm Package Manager
+        run: |
+          echo "🔍 Checking Rule 520: pnpm 10+ Requirement"
+
+          VIOLATION_COUNT=0
+
+          # Check packageManager field
+          if [ -f "package.json" ]; then
+            if grep -q "\"packageManager\"" package.json; then
+              PNPM_VERSION=$(grep "packageManager" package.json | grep -oE "pnpm@[0-9]+" | grep -oE "[0-9]+")
+              if [ -n "$PNPM_VERSION" ] && [ "$PNPM_VERSION" -ge 10 ]; then
+                echo "  ✅ pnpm version $PNPM_VERSION (>= 10) specified"
+              else
+                echo "  ⚠️  pnpm version requirement not properly specified"
+                VIOLATION_COUNT=$((VIOLATION_COUNT + 1))
+              fi
+            else
+              echo "  ⚠️  No packageManager field in package.json"
+              VIOLATION_COUNT=$((VIOLATION_COUNT + 1))
+            fi
+          fi
+
+          if [ $VIOLATION_COUNT -gt 0 ]; then
+            echo "  ❌ Found $VIOLATION_COUNT Rule 520 violations"
+          fi
+
+      - name: Check Constitutional Principle VII - Pre-commit Quality Gates
+        run: |
+          echo "🔍 Checking Constitutional Principle VII: Pre-commit Quality Gates"
+
+          VIOLATION_COUNT=0
+
+          # Check for .husky/pre-commit or similar
+          if [ -f ".husky/pre-commit" ]; then
+            if grep -q "pnpm test" ".husky/pre-commit" && \
+               grep -q "pnpm lint" ".husky/pre-commit"; then
+              echo "  ✅ Pre-commit hooks configured with test and lint"
+            else
+              echo "  ⚠️  Pre-commit hooks missing test or lint requirements"
+              VIOLATION_COUNT=$((VIOLATION_COUNT + 1))
+            fi
+          else
+            echo "  ⚠️  No pre-commit hooks found (.husky/pre-commit)"
+            VIOLATION_COUNT=$((VIOLATION_COUNT + 1))
+          fi
+
+          if [ $VIOLATION_COUNT -gt 0 ]; then
+            echo "  ❌ Found $VIOLATION_COUNT Constitutional violations"
+          fi
+
+      - name: Check Documentation Requirements
+        run: |
+          echo "🔍 Checking Documentation Requirements"
+
+          VIOLATION_COUNT=0
+
+          # Required documentation files
+          REQUIRED_FILES=(
+            "CLAUDE.md"
+            ".specify/memory/constitution.md"
+            ".claude/rules/110-typescript.md"
+            ".claude/rules/410-testing-and-quality-gates.md"
+            ".claude/rules/510-node-version-management.md"
+            ".claude/rules/520-pnpm-package-manager.md"
+          )
+
+          for file in "${REQUIRED_FILES[@]}"; do
+            if [ -f "$file" ]; then
+              echo "  ✅ $file exists"
+            else
+              echo "  ❌ Missing required documentation: $file"
+              VIOLATION_COUNT=$((VIOLATION_COUNT + 1))
+            fi
+          done
+
+          if [ $VIOLATION_COUNT -gt 0 ]; then
+            echo "  ❌ Found $VIOLATION_COUNT missing documentation files"
+          fi
+
+      - name: Generate Violation Report
+        if: always()
+        run: |
+          echo "## Violation Check Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ All rule and constitutional compliance checks completed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Rules Checked:" >> $GITHUB_STEP_SUMMARY
+          echo "- Rule 110: TypeScript Standards" >> $GITHUB_STEP_SUMMARY
+          echo "- Rule 410: Testing and Quality Gates" >> $GITHUB_STEP_SUMMARY
+          echo "- Rule 510: Node.js Version Management" >> $GITHUB_STEP_SUMMARY
+          echo "- Rule 520: pnpm Package Manager" >> $GITHUB_STEP_SUMMARY
+          echo "- Constitutional Principle VII: Pre-commit Quality Gates" >> $GITHUB_STEP_SUMMARY
