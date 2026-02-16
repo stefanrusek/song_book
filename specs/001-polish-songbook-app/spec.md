@@ -16,6 +16,24 @@
 - Q: Should the application work offline? → A: Basic offline (PWA) - Cache hymn data for offline viewing after first visit
 - Q: How should categories be displayed on the home page? → A: Expandable/collapsible accordion with responsive layout: three columns on desktop, one column on mobile
 - Q: Should hymns include category information for navigation? → A: Yes, each hymn must include its major category and subcategory references to enable navigation to other hymns in the same category/subcategory
+- Q: Which features should be explicitly excluded from this initial release? → A: Basic feature exclusions - exclude user accounts, playlists, annotations, sharing, hymn favoriting
+- Q: Should the architecture include a dedicated HymnProvider for managing hymn data and operations? → A: Yes, use HymnProvider - Create a React Context provider that encapsulates hymn data loading, caching, search operations, and exposes clean hooks
+- Q: How should the application provide feedback to users during loading, errors, and state transitions? → A: Standard feedback - Loading spinners for data fetches, error messages for failures, persistent offline indicator in header/footer
+
+## Out of Scope
+
+The following features are **explicitly excluded** from this initial release to maintain focus on core functionality:
+
+- **User Accounts & Authentication**: No login, registration, or user profiles
+- **Playlists**: No ability to create custom hymn collections
+- **Annotations**: No personal notes, highlights, or bookmarks on hymns
+- **Social Sharing**: No share buttons or social media integration
+- **Favoriting/Bookmarking**: No ability to mark hymns as favorites
+- **Advanced Search**: No full-text search index, fuzzy matching, or relevance ranking (using simple case-insensitive, diacritic-insensitive substring search)
+- **Hymn Modification**: No editing or customizing hymn content
+- **Multi-version Support**: Only the 2005 edition included
+
+These features may be considered for future iterations based on user feedback.
 
 ## Root Cause Analysis *(mandatory)*
 
@@ -138,15 +156,15 @@ A church member remembers part of a hymn's title or some lyrics but doesn't know
 
 ### Edge Cases
 
-- What happens when a user enters a non-numeric song number (e.g., /song/abc)?
-- What happens when the markdown file cannot be parsed during import?
-- What happens when a user searches with very common Polish words that appear in many hymns?
-- How does the system handle hymns with no author or chorus information?
-- What happens on slow network connections - is there loading feedback?
-- Polish diacritical marks (ą, ć, ę, ł, ń, ó, ś, ź, ż) in search: Search normalizes both query and content by removing diacritics, so users can type with or without them and still find matches
-- What happens when a user tries to access a hymn offline that wasn't previously cached?
-- How does the application indicate to users when they are offline vs online?
-- What happens if cached data becomes stale or corrupted?
+- What happens when a user enters a non-numeric song number (e.g., /song/abc)? → Display "Invalid hymn number" error message
+- What happens when the markdown file cannot be parsed during import? → Build-time error with detailed parsing failure information; prevents deployment
+- What happens when a user searches with very common Polish words that appear in many hymns? → Display all matches (potentially large result set); users can refine search with additional terms
+- How does the system handle hymns with no author or chorus information? → Display hymns without those sections; fields are optional in data model
+- Loading feedback on slow connections → Display loading spinner while fetching hymn data or executing search (FR-025)
+- Polish diacritical marks (ą, ć, ę, ł, ń, ó, ś, ź, ż) in search → Search normalizes both query and content by removing diacritics, so users can type with or without them and still find matches
+- What happens when a user tries to access a hymn offline that wasn't previously cached? → Display error message "This hymn is not available offline. Please connect to the internet to view it."
+- Offline vs online indication → Persistent offline indicator appears in header/footer when network is unavailable (FR-027, FR-028)
+- What happens if cached data becomes stale or corrupted? → Service Worker automatically re-fetches fresh data on next online connection; users can manually refresh if needed
 
 ## High-Level Sequence Diagrams *(mandatory)*
 
@@ -251,6 +269,11 @@ sequenceDiagram
 - **FR-021**: Each hymn MUST include references to its major category and subcategory
 - **FR-022**: Hymn detail page MUST provide navigation links to view all hymns in the same category or subcategory
 - **FR-023**: Category/subcategory navigation from a hymn MUST show the hymn's position within its category (e.g., "Hymn 5 of 61 in this category")
+- **FR-024**: Application architecture MUST use a HymnProvider (React Context) to centralize hymn data management and operations, providing clean hooks (useHymns, useHymnById, useSearch) for component access
+- **FR-025**: Application MUST display loading spinners or indicators when fetching hymn data or executing searches
+- **FR-026**: Application MUST display clear error messages when operations fail (e.g., "Failed to load hymn", "Search unavailable")
+- **FR-027**: Application MUST display a persistent offline indicator (e.g., in header or footer) when the device loses network connectivity
+- **FR-028**: Offline indicator MUST disappear when network connectivity is restored
 
 ### Key Entities
 
@@ -277,6 +300,17 @@ sequenceDiagram
   - Hymn number
   - Hymn title
   - Match context (where the search term was found)
+
+- **HymnProvider**: Architectural component that manages hymn data and operations:
+  - Encapsulates hymn data loading from JSON
+  - Manages client-side caching for offline support
+  - Provides search operations with diacritic normalization
+  - Exposes React hooks for component access:
+    - `useHymns()`: Access all hymns or filter by category
+    - `useHymnById(number)`: Retrieve specific hymn by number
+    - `useSearch(query)`: Execute debounced search with normalized matching
+    - `useCategories()`: Access category structure and navigation
+  - Purpose: Centralizes data logic, enables clean component separation, improves testability
 
 ## Success Criteria *(mandatory)*
 
