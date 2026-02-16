@@ -153,7 +153,7 @@ export function createTestSummary(
 /**
  * Type-safe hymn search result validator
  */
-export interface SearchResultValidator {
+export type SearchResultValidator = {
   hymn: { number: number; title: string }
   matchType: 'number' | 'title' | 'author' | 'verse' | 'chorus'
   relevance: number
