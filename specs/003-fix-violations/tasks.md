@@ -118,34 +118,34 @@ description: "Task list for fixing rule and constitutional violations"
 
 ### Final Quality Gate Checks
 
-- [ ] T024 [US1] Run complete quality gate sequence: `pnpm test && pnpm lint && pnpm coverage` (exit code 0)
-- [ ] T025 [US1] Verify all 9 functional requirements met (FR-001 through FR-009 in spec.md)
-- [ ] T026 [US1] Verify all 8 success criteria achieved (SC-001 through SC-008 in spec.md)
+- [x] T024 [US1] Run complete quality gate sequence: `pnpm test && pnpm lint && pnpm coverage` (exit code 0)
+- [x] T025 [US1] Verify all 9 functional requirements met (FR-001 through FR-009 in spec.md)
+- [x] T026 [US1] Verify all 8 success criteria achieved (SC-001 through SC-008 in spec.md)
 
 ### Compliance Verification (for US2 - Code Reviewer)
 
-- [ ] T027 [US2] Verify jest.config.js has 100% threshold (Requirement: FR-001)
-- [ ] T028 [US2] Verify all 14 component test files exist (Requirement: FR-002)
-- [ ] T029 [US2] Verify all 3 hook test files exist (Requirement: FR-003)
-- [ ] T030 [US2] Verify all 3 page test files exist (Requirement: FR-004)
-- [ ] T031 [US2] Verify ESLint configured in shared package (Requirement: FR-005)
-- [ ] T032 [US2] Verify interface converted to type in test-utils.ts (Requirement: FR-006)
-- [ ] T033 [US2] Confirm all 23 violations documented as fixed (Requirement: FR-009)
+- [x] T027 [US2] Verify jest.config.js has 100% threshold (Requirement: FR-001)
+- [x] T028 [US2] Verify all 14 component test files exist (Requirement: FR-002)
+- [x] T029 [US2] Verify all 3 hook test files exist (Requirement: FR-003)
+- [x] T030 [US2] Verify all 3 page test files exist (Requirement: FR-004)
+- [x] T031 [US2] Verify ESLint configured in shared package (Requirement: FR-005)
+- [x] T032 [US2] Verify interface converted to type in test-utils.ts (Requirement: FR-006)
+- [x] T033 [US2] Confirm all 23 violations documented as fixed (Requirement: FR-009)
 
 ### Documentation (for US3 - New Developer Onboarding)
 
-- [ ] T034 [P] [US3] Verify CLAUDE.md documents Node.js 24 requirement (Rule 510)
-- [ ] T035 [P] [US3] Verify CLAUDE.md documents pnpm 10+ requirement (Rule 520)
-- [ ] T036 [P] [US3] Verify CLAUDE.md documents 100% coverage requirement (Rule 410)
-- [ ] T037 [P] [US3] Verify CLAUDE.md documents TypeScript type standards (Rule 110)
-- [ ] T038 [P] [US3] Verify .claude/rules/410-testing-and-quality-gates.md is complete and current
-- [ ] T039 [P] [US3] Verify .claude/rules/510-node-version-management.md is complete and current
-- [ ] T040 [P] [US3] Verify .claude/rules/520-pnpm-package-manager.md is complete and current
-- [ ] T041 [P] [US3] Verify Constitution documents all 7 principles with Principle VII pre-commit gates
+- [x] T034 [P] [US3] Verify CLAUDE.md documents Node.js 24 requirement (Rule 510)
+- [x] T035 [P] [US3] Verify CLAUDE.md documents pnpm 10+ requirement (Rule 520)
+- [x] T036 [P] [US3] Verify CLAUDE.md documents 100% coverage requirement (Rule 410)
+- [x] T037 [P] [US3] Verify CLAUDE.md documents TypeScript type standards (Rule 110)
+- [x] T038 [P] [US3] Verify .claude/rules/410-testing-and-quality-gates.md is complete and current
+- [x] T039 [P] [US3] Verify .claude/rules/510-node-version-management.md is complete and current
+- [x] T040 [P] [US3] Verify .claude/rules/520-pnpm-package-manager.md is complete and current
+- [x] T041 [P] [US3] Verify Constitution documents all 7 principles with Principle VII pre-commit gates
 
 ### Final Commit
 
-- [ ] T042 [US1] Create final commit: `git commit -m "docs(spec): complete violation fixes achieving 100% compliance..."`
+- [x] T042 [US1] Create final commit: `git commit -m "docs(spec): complete violation fixes achieving 100% compliance..."`
   - Include list of all fixes
   - Include quality gate pass confirmations
   - Add Co-Authored-By trailer
