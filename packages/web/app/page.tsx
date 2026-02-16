@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useHymns, useCategories } from '@/providers/hymn-provider'
+import { useCategories } from '@/providers/hymn-provider'
 import { useLanguage } from '@/providers/language-provider'
 import { useSearch } from '@/hooks/use-search'
 import { CategoryAccordion } from '@/components/category/category-accordion'
@@ -10,7 +10,6 @@ import { SearchResults } from '@/components/search/search-results'
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState('')
-  const hymns = useHymns()
   const categories = useCategories()
   const { t } = useLanguage()
   const { results, isSearching, hasQuery } = useSearch(searchQuery)
@@ -43,33 +42,9 @@ export default function Home() {
 
       {/* Categories Section - only show if not searching */}
       {!hasQuery && (
-        <div className="mb-16">
+        <div>
           <h2 className="text-3xl font-bold text-gray-900 mb-8">{t('category.allCategories')}</h2>
           <CategoryAccordion categories={categories} />
-        </div>
-      )}
-
-      {/* Recent Songs Section - only show if not searching */}
-      {!hasQuery && (
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Featured Songs</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {hymns.slice(0, 4).map((hymn) => (
-              <a
-                key={hymn.number}
-                href={`/song/${hymn.number}`}
-                className="block p-4 bg-white rounded-lg shadow-sm border border-blue-200 hover:shadow-md hover:border-blue-400 transition"
-              >
-                <div className="text-sm text-gray-500 font-semibold mb-2">
-                  #{hymn.number.toString().padStart(3, '0')}
-                </div>
-                <h3 className="font-semibold text-gray-900 line-clamp-2">{hymn.title}</h3>
-                {hymn.author && (
-                  <p className="text-xs text-gray-600 mt-2">by {hymn.author}</p>
-                )}
-              </a>
-            ))}
-          </div>
         </div>
       )}
     </div>
