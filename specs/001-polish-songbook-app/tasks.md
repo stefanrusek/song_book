@@ -122,15 +122,15 @@ This is a **Next.js monorepo** with:
 
 ### Implementation for User Story 2
 
-- [ ] T050 [P] [US2] Create CategoryAccordion component in packages/web/components/category/category-accordion.tsx with collapsible major categories
-- [ ] T051 [P] [US2] Create CategoryItem component in packages/web/components/category/category-item.tsx for subcategory display with hymn ranges
-- [ ] T052 [P] [US2] Add responsive grid layout to CategoryAccordion (3 columns ≥768px, 1 column <768px) using Tailwind
-- [ ] T053 [US2] Create home page in packages/web/app/page.tsx with CategoryAccordion using useCategories hook
-- [ ] T054 [US2] Create category listing page in packages/web/app/category/[id]/page.tsx to display all hymns in selected category/subcategory
-- [ ] T055 [US2] Add SongCard component in packages/web/components/song/song-card.tsx for hymn preview in category listing
-- [ ] T056 [US2] Highlight current hymn when viewing category page from hymn detail page
-- [ ] T057 [US2] Integrate Header with LanguageToggle into root layout for all pages
-- [ ] T058 [US2] Test language toggle switches UI text while preserving Polish hymn content
+- [x] T050 [P] [US2] Create CategoryAccordion component in packages/web/components/category/category-accordion.tsx with collapsible major categories
+- [x] T051 [P] [US2] Create CategoryItem component in packages/web/components/category/category-item.tsx for subcategory display with hymn ranges
+- [x] T052 [P] [US2] Add responsive grid layout to CategoryAccordion (3 columns ≥768px, 1 column <768px) using Tailwind
+- [x] T053 [US2] Create home page in packages/web/app/page.tsx with CategoryAccordion using useCategories hook
+- [x] T054 [US2] Create category listing page in packages/web/app/category/[id]/page.tsx to display all hymns in selected category/subcategory
+- [x] T055 [US2] Add SongCard component in packages/web/components/song/song-card.tsx for hymn preview in category listing
+- [x] T056 [US2] Highlight current hymn when viewing category page from hymn detail page
+- [x] T057 [US2] Integrate Header with LanguageToggle into root layout for all pages
+- [x] T058 [US2] Test language toggle switches UI text while preserving Polish hymn content
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently - can browse categories and view hymns
 
