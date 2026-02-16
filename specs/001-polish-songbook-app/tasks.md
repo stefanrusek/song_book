@@ -144,17 +144,17 @@ This is a **Next.js monorepo** with:
 
 ### Implementation for User Story 3
 
-- [ ] T059 [P] [US3] Create search utilities in packages/web/lib/search-utils.ts (normalize query, search across hymns using text-normalize utility from T017)
-- [ ] T060 [P] [US3] Create useSearch hook in packages/web/hooks/use-search.ts with debounced search (300ms) and diacritic-insensitive matching
-- [ ] T061 [P] [US3] Create useDebounce hook in packages/web/hooks/use-debounce.ts for generic debouncing
-- [ ] T062 [P] [US3] Create SearchBox component in packages/web/components/search/search-box.tsx with debounced input
-- [ ] T063 [P] [US3] Create SearchResults component in packages/web/components/search/search-results.tsx displaying matching hymns with numbers and titles
-- [ ] T064 [US3] Integrate SearchBox and SearchResults into home page (packages/web/app/page.tsx) above CategoryAccordion (extends home page from US2 T053)
-- [ ] T065 [US3] Add loading indicator in SearchBox while search executes
-- [ ] T066 [US3] Add "no results found" message in SearchResults when no matches
-- [ ] T067 [US3] Implement search by hymn number (numeric query returns exact hymn)
-- [ ] T068 [US3] Test diacritic-insensitive search (e.g., "Bog" matches "Bóg", "a" matches "ą")
-- [ ] T069 [US3] Verify search works offline using cached hymn data
+- [x] T059 [P] [US3] Create search utilities in packages/web/lib/search-utils.ts (normalize query, search across hymns using text-normalize utility from T017)
+- [x] T060 [P] [US3] Create useSearch hook in packages/web/hooks/use-search.ts with debounced search (300ms) and diacritic-insensitive matching
+- [x] T061 [P] [US3] Create useDebounce hook in packages/web/hooks/use-debounce.ts for generic debouncing
+- [x] T062 [P] [US3] Create SearchBox component in packages/web/components/search/search-box.tsx with debounced input
+- [x] T063 [P] [US3] Create SearchResults component in packages/web/components/search/search-results.tsx displaying matching hymns with numbers and titles
+- [x] T064 [US3] Integrate SearchBox and SearchResults into home page (packages/web/app/page.tsx) above CategoryAccordion (extends home page from US2 T053)
+- [x] T065 [US3] Add loading indicator in SearchBox while search executes
+- [x] T066 [US3] Add "no results found" message in SearchResults when no matches
+- [x] T067 [US3] Implement search by hymn number (numeric query returns exact hymn)
+- [x] T068 [US3] Test diacritic-insensitive search (e.g., "Bog" matches "Bóg", "a" matches "ą")
+- [x] T069 [US3] Verify search works offline using cached hymn data
 
 **Checkpoint**: All user stories should now be independently functional - view hymns, browse categories, search
 
