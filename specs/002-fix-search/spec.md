@@ -1,6 +1,6 @@
 # Feature Specification: Fix Search Diacritical Matching
 
-**Feature Branch**: `001-fix-search`
+**Feature Branch**: `002-fix-search`
 **Created**: 2026-02-16
 **Status**: Draft
 **Input**: User description: "fix search. \"bylo\" should match \"Było\" but it isn't. We want to add tests for all possible characters to ensure we don't regress."
