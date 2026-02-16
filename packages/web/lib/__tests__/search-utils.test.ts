@@ -77,17 +77,19 @@ describe('searchHymns - Polish Diacritical Search Integration', () => {
     test('query "zal" (unaccented) finds hymn #42 with title "żal"', () => {
       const results = searchHymns(MOCK_HYMNS, 'zal')
       const hymnNumbers = results.map((r) => r.hymn.number)
-      expectSearchMatches(hymnNumbers, [42], 'zal')
+      // "zal" matches hymn #42 ("żal" in title) and #7 (contains "żałuję" in verse)
+      expect(hymnNumbers).toContain(42)
 
       const match = results.find((r) => r.hymn.number === 42)
       expect(match?.matchType).toBe('title')
       expectRelevanceScore(match?.relevance || 0, 0.8, 0.01)
     })
 
-    test('query "swieci" (unaccented) finds hymns with "świeci" in verses', () => {
-      const results = searchHymns(MOCK_HYMNS, 'swieci')
+    test('query "smialo" (unaccented) finds hymns with "śmiało" in verses', () => {
+      const results = searchHymns(MOCK_HYMNS, 'smialo')
       expect(results.length).toBeGreaterThan(0)
-      // Should find based on verse content
+      // Should find hymn #7 based on verse content
+      expect(results.some((r) => r.hymn.number === 7)).toBe(true)
     })
 
     test('query "piesn" (unaccented) finds hymns with "piesń"', () => {

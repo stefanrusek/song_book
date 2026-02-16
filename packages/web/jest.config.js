@@ -15,7 +15,7 @@ module.exports = {
     '!**/*.d.ts',
     '!**/page.tsx'
   ],
-  coverageThresholds: {
+  coverageThreshold: {
     global: {
       statements: 80,
       branches: 80,

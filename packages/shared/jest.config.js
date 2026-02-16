@@ -9,7 +9,7 @@ module.exports = {
     '!utils/**/*.test.ts',
     '!**/__tests__/**'
   ],
-  coverageThresholds: {
+  coverageThreshold: {
     global: {
       statements: 100,
       branches: 100,
@@ -19,5 +19,13 @@ module.exports = {
   },
   moduleNameMapper: {
     '^@songbook/shared/(.*)$': '<rootDir>/$1'
+  },
+  transform: {
+    '^.+\\.tsx?$': ['ts-jest', {
+      tsconfig: {
+        lib: ['ES2022'],
+        types: ['node', 'jest']
+      }
+    }]
   }
 }

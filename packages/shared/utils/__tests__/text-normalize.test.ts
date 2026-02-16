@@ -11,14 +11,12 @@ import {
   POLISH_DIACRITICALS,
   NORMALIZATION_MAP,
   POLISH_WORDS,
-  POLISH_PHRASES,
   NORMALIZATION_TEST_CASES,
 } from './fixtures'
 import {
   expectNormalization,
   expectBidirectionalEquivalence,
   expectIdempotent,
-  createTestSummary,
 } from './test-utils'
 
 describe('normalizeText - Polish Diacritical Normalization', () => {
@@ -76,7 +74,7 @@ describe('normalizeText - Polish Diacritical Normalization', () => {
     const phrasePairs = [
       { accented: 'Zaczął się znowu', expected: 'zaczal sie znowu' },
       { accented: 'Pieśń moja sędziowie', expected: 'piesn moja sedziowie' },
-      { accented: 'Która niego dla mnie czuli', expected: 'ktorego niego dla mnie czuli' },
+      { accented: 'Która niego dla mnie czuli', expected: 'ktora niego dla mnie czuli' },
       { accented: 'O drzewo stare co się przeciąża', expected: 'o drzewo stare co sie przeciaza' },
     ]
 

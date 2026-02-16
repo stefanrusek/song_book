@@ -110,9 +110,10 @@ export function expectPerformance(
  * Measures execution time of a function
  */
 export function measurePerformance(fn: () => void): number {
-  const start = performance.now()
+  const perf = (globalThis as unknown as { performance: { now: () => number } }).performance
+  const start = perf.now()
   fn()
-  const end = performance.now()
+  const end = perf.now()
   return end - start
 }
 
