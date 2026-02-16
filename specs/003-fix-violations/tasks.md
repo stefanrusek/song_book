@@ -54,37 +54,37 @@ description: "Task list for fixing rule and constitutional violations"
 
 *Each component test MUST achieve 100% coverage (line, branch, function, statement)*
 
-- [ ] T003 [P] [US1] Create category-accordion.test.tsx in packages/web/components/category/ (test CategoryAccordion component)
-- [ ] T004 [P] [US1] Create category-item.test.tsx in packages/web/components/category/ (test CategoryItem component)
-- [ ] T005 [P] [US1] Create language-toggle.test.tsx in packages/web/components/common/ (test LanguageToggle component)
-- [ ] T006 [P] [US1] Create offline-indicator.test.tsx in packages/web/components/common/ (test OfflineIndicator component)
-- [ ] T007 [P] [US1] Create header.test.tsx in packages/web/components/layout/ (test Header component)
-- [ ] T008 [P] [US1] Create search-box.test.tsx in packages/web/components/search/ (test SearchBox component)
-- [ ] T009 [P] [US1] Create search-results.test.tsx in packages/web/components/search/ (test SearchResults component)
-- [ ] T010 [P] [US1] Create category-badge.test.tsx in packages/web/components/song/ (test CategoryBadge component)
-- [ ] T011 [P] [US1] Create song-card.test.tsx in packages/web/components/song/ (test SongCard component)
-- [ ] T012 [P] [US1] Create song-details.test.tsx in packages/web/components/song/ (test SongDetails component)
-- [ ] T013 [P] [US1] Create verse-display.test.tsx in packages/web/components/song/ (test VerseDisplay component)
+- [x] T003 [P] [US1] Create category-accordion.test.tsx in packages/web/components/category/ (test CategoryAccordion component)
+- [x] T004 [P] [US1] Create category-item.test.tsx in packages/web/components/category/ (test CategoryItem component)
+- [x] T005 [P] [US1] Create language-toggle.test.tsx in packages/web/components/common/ (test LanguageToggle component)
+- [x] T006 [P] [US1] Create offline-indicator.test.tsx in packages/web/components/common/ (test OfflineIndicator component)
+- [x] T007 [P] [US1] Create header.test.tsx in packages/web/components/layout/ (test Header component)
+- [x] T008 [P] [US1] Create search-box.test.tsx in packages/web/components/search/ (test SearchBox component)
+- [x] T009 [P] [US1] Create search-results.test.tsx in packages/web/components/search/ (test SearchResults component)
+- [x] T010 [P] [US1] Create category-badge.test.tsx in packages/web/components/song/ (test CategoryBadge component)
+- [x] T011 [P] [US1] Create song-card.test.tsx in packages/web/components/song/ (test SongCard component)
+- [x] T012 [P] [US1] Create song-details.test.tsx in packages/web/components/song/ (test SongDetails component)
+- [x] T013 [P] [US1] Create verse-display.test.tsx in packages/web/components/song/ (test VerseDisplay component)
 
 ### Hook Tests (3 files)
 
 *Each hook test MUST achieve 100% coverage for all code paths and edge cases*
 
-- [ ] T014 [P] [US1] Create use-debounce.test.ts in packages/web/hooks/ (test useDebounce hook with renderHook)
-- [ ] T015 [P] [US1] Create use-offline.test.ts in packages/web/hooks/ (test useOffline hook with renderHook)
-- [ ] T016 [P] [US1] Create use-search.test.ts in packages/web/hooks/ (test useSearch hook with renderHook)
+- [x] T014 [P] [US1] Create use-debounce.test.ts in packages/web/hooks/ (test useDebounce hook with renderHook)
+- [x] T015 [P] [US1] Create use-offline.test.ts in packages/web/hooks/ (test useOffline hook with renderHook)
+- [x] T016 [P] [US1] Create use-search.test.ts in packages/web/hooks/ (test useSearch hook with renderHook)
 
 ### Page Content Tests (3 files)
 
 *Each page test MUST achieve 100% coverage for rendered content*
 
-- [ ] T017 [P] [US1] Create content.test.tsx in packages/web/app/song/[number]/ (test song detail page content)
-- [ ] T018 [P] [US1] Create content.test.tsx in packages/web/app/category/subcategory/[number]/ (test category detail page content)
-- [ ] T019 [P] [US1] Create page.test.tsx in packages/web/app/ (test home page content)
+- [x] T017 [P] [US1] Create content.test.tsx in packages/web/app/song/[number]/ (test song detail page content)
+- [x] T018 [P] [US1] Create content.test.tsx in packages/web/app/category/subcategory/[number]/ (test category detail page content)
+- [x] T019 [P] [US1] Create page.test.tsx in packages/web/app/ (test home page content)
 
 ### Verification Tasks (Sequential)
 
-- [ ] T020 [US1] Run pnpm test and verify all tests pass (100% success rate)
+- [x] T020 [US1] Run pnpm test and verify all tests pass (100% success rate)
 - [ ] T021 [US1] Run pnpm lint and verify zero errors/warnings across all packages
 - [ ] T022 [US1] Run pnpm coverage and verify 100% coverage (statements, branches, functions, lines)
 
