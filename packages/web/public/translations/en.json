@@ -13,6 +13,7 @@
   "song": {
     "verse": "Verse",
     "chorus": "Chorus",
+    "key": "Key",
     "author": "Author",
     "translator": "Translator",
     "category": "Category",

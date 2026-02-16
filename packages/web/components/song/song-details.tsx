@@ -25,7 +25,7 @@ export function SongDetails({ hymn }: SongDetailsProps) {
         <div className="flex flex-wrap gap-4 text-sm text-gray-600">
           {hymn.key && (
             <div>
-              <span className="font-semibold">{t('song.author')}:</span> {hymn.key}
+              <span className="font-semibold">{t('song.key')}:</span> {hymn.key}
             </div>
           )}
           {hymn.author && (
