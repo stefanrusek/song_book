@@ -149,8 +149,8 @@ packages/
 │   ├── components/        # UI components only (presentational)
 │   │   ├── layout/        # Header, footer, navigation
 │   │   ├── song/          # Song-related components
-│   │   ├── common/        # Shared UI components (buttons, inputs)
-│   │   └── providers/     # Context providers for global state
+│   │   └── common/        # Shared UI components (buttons, inputs)
+│   ├── providers/         # Context providers for global state
 │   ├── hooks/             # Custom React hooks for data/state logic
 │   └── lib/               # Web-specific utilities
 │
