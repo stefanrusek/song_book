@@ -7,7 +7,16 @@ import { OfflineIndicator } from '@/components/common/offline-indicator'
 
 export const metadata: Metadata = {
   title: 'Śpiewajmy Panu - Polish SDA Hymnal',
-  description: 'Digital version of the Polish SDA hymnal (Śpiewajmy Panu 2005)',
+  description: 'Digital version of the Polish SDA hymnal (Śpiewajmy Panu 2005) with search, categories, and offline support',
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Śpiewajmy Panu',
+  },
+  formatDetection: {
+    telephone: false,
+  },
 }
 
 export default function RootLayout({
