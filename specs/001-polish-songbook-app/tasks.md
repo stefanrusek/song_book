@@ -59,14 +59,14 @@ This is a **Next.js monorepo** with:
 
 ### Data Conversion & Validation
 
-- [ ] T019 Create markdown-to-JSON conversion script in scripts/convert-markdown-to-json.ts to parse /Users/stefanrusek/Downloads/spiewajmy_panu_2005.md
-- [ ] T020 Implement table of contents parser in conversion script (extract 9 major categories, 40 subcategories with ranges)
-- [ ] T021 Implement hymn parser in conversion script (extract number, title, key, verses, chorus, author/translator)
-- [ ] T022 Add category/subcategory mapping logic to conversion script (assign hymns to categories based on ranges)
-- [ ] T023 Add fullText generation in conversion script (concatenate title + verses + chorus for search)
-- [ ] T024 Create validation script in scripts/validate-hymn-data.ts to verify JSON against schema
-- [ ] T025 Run conversion script to generate packages/web/public/data/hymns.json from markdown
-- [ ] T026 Validate generated hymns.json contains all 700 hymns with complete data
+- [x] T019 Create markdown-to-JSON conversion script in scripts/convert-markdown-to-json.ts to parse /Users/stefanrusek/Downloads/spiewajmy_panu_2005.md
+- [x] T020 Implement table of contents parser in conversion script (extract 9 major categories, 40 subcategories with ranges)
+- [x] T021 Implement hymn parser in conversion script (extract number, title, key, verses, chorus, author/translator)
+- [x] T022 Add category/subcategory mapping logic to conversion script (assign hymns to categories based on ranges)
+- [x] T023 Add fullText generation in conversion script (concatenate title + verses + chorus for search)
+- [x] T024 Create validation script in scripts/validate-hymn-data.ts to verify JSON against schema
+- [x] T025 Run conversion script to generate packages/web/public/data/hymns.json from markdown
+- [x] T026 Validate generated hymns.json contains all 700 hymns with complete data
 
 ### Core Providers & Hooks
 
@@ -102,13 +102,13 @@ This is a **Next.js monorepo** with:
 
 ### Implementation for User Story 1
 
-- [ ] T043 [P] [US1] Create SongDetails component in packages/web/components/song/song-details.tsx to display hymn number, title, key, verses, chorus, author
-- [ ] T044 [P] [US1] Create VerseDisplay component in packages/web/components/song/verse-display.tsx for formatting individual verses
-- [ ] T045 [P] [US1] Create CategoryBadge component in packages/web/components/song/category-badge.tsx showing category and subcategory with navigation links
-- [ ] T046 [US1] Create dynamic hymn page in packages/web/app/song/[number]/page.tsx using useHymnById hook
-- [ ] T047 [US1] Add error handling for invalid hymn numbers in song/[number]/page.tsx (handle non-numeric inputs like /song/abc and out-of-range numbers like /song/999, show "Song not found" message)
-- [ ] T048 [US1] Add loading spinner in song/[number]/page.tsx while hymn data loads
-- [ ] T049 [US1] Implement category navigation from hymn page (links to view all hymns in category/subcategory)
+- [x] T043 [P] [US1] Create SongDetails component in packages/web/components/song/song-details.tsx to display hymn number, title, key, verses, chorus, author
+- [x] T044 [P] [US1] Create VerseDisplay component in packages/web/components/song/verse-display.tsx for formatting individual verses
+- [x] T045 [P] [US1] Create CategoryBadge component in packages/web/components/song/category-badge.tsx showing category and subcategory with navigation links
+- [x] T046 [US1] Create dynamic hymn page in packages/web/app/song/[number]/page.tsx using useHymnById hook
+- [x] T047 [US1] Add error handling for invalid hymn numbers in song/[number]/page.tsx (handle non-numeric inputs like /song/abc and out-of-range numbers like /song/999, show "Song not found" message)
+- [x] T048 [US1] Add loading spinner in song/[number]/page.tsx while hymn data loads
+- [x] T049 [US1] Implement category navigation from hymn page (links to view all hymns in category/subcategory)
 
 **Checkpoint**: At this point, User Story 1 should be fully functional - can view any hymn by number with complete details and navigation
 
