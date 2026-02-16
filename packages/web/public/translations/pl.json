@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "Strona główna",
+    "search": "Szukaj",
+    "categories": "Kategorie"
+  },
+  "search": {
+    "placeholder": "Szukaj po numerze, tytule lub zawartości...",
+    "noResults": "Nie znaleziono wyników",
+    "searching": "Szukanie...",
+    "resultsCount": "Znalezione {count} wyniki"
+  },
+  "song": {
+    "verse": "Zwrotka",
+    "chorus": "Refren",
+    "author": "Autor",
+    "translator": "Tłumacz",
+    "category": "Kategoria",
+    "subcategory": "Podkategoria",
+    "viewCategory": "Pokaż wszystkie utwory w kategorii",
+    "viewSubcategory": "Pokaż wszystkie utwory w podkategorii",
+    "notFound": "Utwór nie znaleziony",
+    "ofInCategory": "z {total} w kategorii"
+  },
+  "category": {
+    "allCategories": "Wszystkie kategorie",
+    "hymnsInCategory": "Utworów w kategorii",
+    "expand": "Rozwiń",
+    "collapse": "Zwiń"
+  },
+  "offline": {
+    "indicator": "Tryb offline",
+    "message": "Jesteś teraz offline. Możesz korzystać z wcześniej wyświetlonych utworów."
+  },
+  "language": {
+    "polish": "Polski",
+    "english": "English"
+  }
+}

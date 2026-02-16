@@ -1,0 +1,39 @@
+{
+  "nav": {
+    "home": "Home",
+    "search": "Search",
+    "categories": "Categories"
+  },
+  "search": {
+    "placeholder": "Search by number, title, or content...",
+    "noResults": "No results found",
+    "searching": "Searching...",
+    "resultsCount": "Found {count} results"
+  },
+  "song": {
+    "verse": "Verse",
+    "chorus": "Chorus",
+    "author": "Author",
+    "translator": "Translator",
+    "category": "Category",
+    "subcategory": "Subcategory",
+    "viewCategory": "View all songs in category",
+    "viewSubcategory": "View all songs in subcategory",
+    "notFound": "Song not found",
+    "ofInCategory": "of {total} in category"
+  },
+  "category": {
+    "allCategories": "All Categories",
+    "hymnsInCategory": "Songs in Category",
+    "expand": "Expand",
+    "collapse": "Collapse"
+  },
+  "offline": {
+    "indicator": "Offline Mode",
+    "message": "You are now offline. You can still use previously viewed songs."
+  },
+  "language": {
+    "polish": "Polski",
+    "english": "English"
+  }
+}
