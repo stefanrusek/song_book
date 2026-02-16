@@ -166,32 +166,32 @@ This is a **Next.js monorepo** with:
 
 ### PWA & Offline Support
 
-- [ ] T070 [P] Configure next-pwa in packages/web/next.config.js with Cache-First strategy for hymn data
-- [ ] T071 [P] Create PWA manifest in packages/web/public/manifest.json with app name, icons, theme colors
-- [ ] T072 [P] Add PWA icons to packages/web/public/icons/ (192x192, 512x512)
-- [ ] T073 [P] Configure Service Worker caching rules in next.config.js for offline hymn access
-- [ ] T074 Test offline functionality: visit online, go offline, verify hymns load from cache
-- [ ] T075 Verify offline indicator appears when network lost and disappears when restored
+- [x] T070 [P] Configure next-pwa in packages/web/next.config.js with Cache-First strategy for hymn data
+- [x] T071 [P] Create PWA manifest in packages/web/public/manifest.json with app name, icons, theme colors
+- [x] T072 [P] Add PWA icons to packages/web/public/icons/ (192x192, 512x512)
+- [x] T073 [P] Configure Service Worker caching rules in next.config.js for offline hymn access
+- [x] T074 Test offline functionality: visit online, go offline, verify hymns load from cache
+- [x] T075 Verify offline indicator appears when network lost and disappears when restored
 
 ### UI Polish & Styling
 
-- [ ] T076 [P] Add responsive styles for mobile devices across all components
-- [ ] T077 [P] Ensure Polish characters (ą, ć, ę, ł, ń, ó, ś, ź, ż) display correctly in all contexts
-- [ ] T078 [P] Add loading spinners to all data fetch points per FR-025
-- [ ] T079 [P] Add error messages for all failure cases per FR-026
-- [ ] T080 [P] Style SongDetails component for readable hymn display with proper verse formatting
-- [ ] T081 [P] Style CategoryAccordion for clear category hierarchy and visual feedback
+- [x] T076 [P] Add responsive styles for mobile devices across all components
+- [x] T077 [P] Ensure Polish characters (ą, ć, ę, ł, ń, ó, ś, ź, ż) display correctly in all contexts
+- [x] T078 [P] Add loading spinners to all data fetch points per FR-025
+- [x] T079 [P] Add error messages for all failure cases per FR-026
+- [x] T080 [P] Style SongDetails component for readable hymn display with proper verse formatting
+- [x] T081 [P] Style CategoryAccordion for clear category hierarchy and visual feedback
 
 ### Final Integration & Validation
 
-- [ ] T082 Verify all 700 hymns are accessible by number
-- [ ] T083 Verify all 9 major categories and 40 subcategories display correctly
-- [ ] T084 Test complete user journey: Home → Browse category → View hymn → Navigate to another hymn in same category
-- [ ] T085 Test complete user journey: Home → Search "Jezu" → View result → Return to search
-- [ ] T086 Verify language toggle works across all pages and persists across sessions
-- [ ] T087 Run performance tests: hymn load <3s (SC-001), search results <2s (SC-002), offline load <1s (SC-008)
-- [ ] T088 Test on mobile devices (phones and tablets) per SC-005
-- [ ] T089 Follow quickstart.md manual testing checklist to validate all acceptance scenarios
+- [x] T082 Verify all 700 hymns are accessible by number
+- [x] T083 Verify all 9 major categories and 40 subcategories display correctly
+- [x] T084 Test complete user journey: Home → Browse category → View hymn → Navigate to another hymn in same category
+- [x] T085 Test complete user journey: Home → Search "Jezu" → View result → Return to search
+- [x] T086 Verify language toggle works across all pages and persists across sessions
+- [x] T087 Run performance tests: hymn load <3s (SC-001), search results <2s (SC-002), offline load <1s (SC-008)
+- [x] T088 Test on mobile devices (phones and tablets) per SC-005
+- [x] T089 Follow quickstart.md manual testing checklist to validate all acceptance scenarios
 
 ---
 
