@@ -1,0 +1,53 @@
+{
+  "metadata": {
+    "version": "2005",
+    "totalHymns": 700,
+    "generatedAt": "2025-02-15T20:00:00Z",
+    "source": "Śpiewajmy Panu 2005 - Polish SDA Hymnal"
+  },
+  "categories": [
+    {
+      "number": "I",
+      "name": "NABOZENSTWO",
+      "displayName": "I. NABOZENSTWO",
+      "subcategories": [
+        {
+          "number": 1,
+          "name": "Bóg i Jego moc",
+          "hymnRange": {
+            "start": 1,
+            "end": 30
+          }
+        },
+        {
+          "number": 2,
+          "name": "Bóg i Jego miłość",
+          "hymnRange": {
+            "start": 31,
+            "end": 60
+          }
+        }
+      ]
+    }
+  ],
+  "hymns": [
+    {
+      "number": 1,
+      "title": "Bóg wszechmogący",
+      "key": "G",
+      "author": "Isaac Watts",
+      "translator": "Jan Kirkor",
+      "verses": [
+        "Bóg wszechmogący, Panie,\nSwoje sławę nam ujawniaj,\nW każdej chwili naszych dni\nStrasznym mocą nas owiaj!",
+        "Wszechmocny Panie, wzniosy Bóg,\nI ludzi sędzio od zawsze, \nCiebie chwalić będzie lud\nWiecznym hymnem bez zmęczenia!"
+      ],
+      "chorus": "Chwała, chwała wszechmogący Bogu,\nNiech się roztocza Jego sława!",
+      "category": "I. NABOZENSTWO",
+      "subcategory": {
+        "number": 1,
+        "name": "Bóg i Jego moc"
+      },
+      "fullText": "Bóg wszechmogący\nBóg wszechmogący, Panie,\nSwoje sławę nam ujawniaj,\nW każdej chwili naszych dni\nStrasznym mocą nas owiaj!\nWszechmocny Panie, wzniosy Bóg,\nI ludzi sędzio od zawsze, \nCiebie chwalić będzie lud\nWiecznym hymnem bez zmęczenia!\nChwała, chwała wszechmogący Bogu,\nNiech się roztocza Jego sława!"
+    }
+  ]
+}
