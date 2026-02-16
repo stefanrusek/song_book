@@ -12,6 +12,9 @@
     "start": "pnpm --filter @songbook/web start",
     "lint": "pnpm --filter @songbook/web lint",
     "type-check": "pnpm recursive run type-check",
+    "test": "pnpm recursive run test",
+    "test:watch": "pnpm recursive run test:watch",
+    "test:coverage": "pnpm recursive run test:coverage",
     "convert-hymns": "tsx scripts/convert-markdown-to-json.ts"
   },
   "devDependencies": {
