@@ -27,18 +27,18 @@ This is a **Next.js monorepo** with:
 
 **Purpose**: Clean up Next.js template and establish monorepo structure
 
-- [ ] T001 Remove Next.js template files: delete existing app/ and public/ directories and all auto-generated files in root
-- [ ] T002 Create pnpm workspace configuration in pnpm-workspace.yaml with packages glob
-- [ ] T003 Create root package.json with workspace scripts and devDependencies (tsx, typescript)
-- [ ] T004 Create monorepo directory structure: packages/web/, packages/shared/, scripts/
-- [ ] T005 [P] Initialize packages/shared/package.json with TypeScript dependencies
-- [ ] T006 [P] Create packages/shared/tsconfig.json with strict mode enabled
-- [ ] T007 [P] Initialize packages/web/ as Next.js 16+ application with TypeScript and Tailwind
-- [ ] T008 [P] Update packages/web/package.json name to @songbook/web and add dependencies (next-pwa)
-- [ ] T009 [P] Configure packages/web/tsconfig.json with strict mode and path aliases (@/*, @songbook/shared/*)
-- [ ] T010 [P] Create packages/web/tailwind.config.ts with responsive breakpoints (768px for mobile/desktop)
-- [ ] T011 [P] Remove package-lock.json if present (pnpm required per constitution)
-- [ ] T012 Run pnpm install to install all workspace dependencies
+- [x] T001 Remove Next.js template files: delete existing app/ and public/ directories and all auto-generated files in root
+- [x] T002 Create pnpm workspace configuration in pnpm-workspace.yaml with packages glob
+- [x] T003 Create root package.json with workspace scripts and devDependencies (tsx, typescript)
+- [x] T004 Create monorepo directory structure: packages/web/, packages/shared/, scripts/
+- [x] T005 [P] Initialize packages/shared/package.json with TypeScript dependencies
+- [x] T006 [P] Create packages/shared/tsconfig.json with strict mode enabled
+- [x] T007 [P] Initialize packages/web/ as Next.js 16+ application with TypeScript and Tailwind
+- [x] T008 [P] Update packages/web/package.json name to @songbook/web and add dependencies (next-pwa)
+- [x] T009 [P] Configure packages/web/tsconfig.json with strict mode and path aliases (@/*, @songbook/shared/*)
+- [x] T010 [P] Create packages/web/tailwind.config.ts with responsive breakpoints (768px for mobile/desktop)
+- [x] T011 [P] Remove package-lock.json if present (pnpm required per constitution)
+- [x] T012 Run pnpm install to install all workspace dependencies
 
 ---
 
@@ -50,12 +50,12 @@ This is a **Next.js monorepo** with:
 
 ### Shared Types & Utilities
 
-- [ ] T013 [P] Create Hymn type definition in packages/shared/types/hymn.ts with all fields (number, title, key, author, translator, verses, chorus, category, subcategory, fullText)
-- [ ] T014 [P] Create Category type definition in packages/shared/types/category.ts with subcategories and hymn ranges
-- [ ] T015 [P] Create type guards in packages/shared/types/guards.ts (isHymn, isCategory, isHymnData)
-- [ ] T016 [P] Create barrel export in packages/shared/types/index.ts
-- [ ] T017 [P] Create text normalization utility in packages/shared/utils/text-normalize.ts with NFD diacritic removal
-- [ ] T018 [P] Create SearchResult and TranslationDictionary types in packages/shared/types/index.ts
+- [x] T013 [P] Create Hymn type definition in packages/shared/types/hymn.ts with all fields (number, title, key, author, translator, verses, chorus, category, subcategory, fullText)
+- [x] T014 [P] Create Category type definition in packages/shared/types/category.ts with subcategories and hymn ranges
+- [x] T015 [P] Create type guards in packages/shared/types/guards.ts (isHymn, isCategory, isHymnData)
+- [x] T016 [P] Create barrel export in packages/shared/types/index.ts
+- [x] T017 [P] Create text normalization utility in packages/shared/utils/text-normalize.ts with NFD diacritic removal
+- [x] T018 [P] Create SearchResult and TranslationDictionary types in packages/shared/types/index.ts
 
 ### Data Conversion & Validation
 
@@ -70,25 +70,25 @@ This is a **Next.js monorepo** with:
 
 ### Core Providers & Hooks
 
-- [ ] T027 Create HymnProvider in packages/web/providers/hymn-provider.tsx with React Context for hymn data management
-- [ ] T028 Implement hymn data loading in HymnProvider (load from /data/hymns.json)
-- [ ] T029 Implement useHymns hook in HymnProvider (access all hymns, filter by category)
-- [ ] T030 Implement useHymnById hook in HymnProvider (retrieve specific hymn by number)
-- [ ] T031 Implement useCategories hook in HymnProvider (access category structure)
-- [ ] T032 [P] Create LanguageProvider in packages/web/providers/language-provider.tsx with Context for Polish/English toggle
-- [ ] T033 [P] Create Polish translations in packages/web/translations/pl.json (nav, search, song, category, offline, language keys)
-- [ ] T034 [P] Create English translations in packages/web/translations/en.json (all UI text in English)
-- [ ] T035 [P] Implement useLanguage hook in LanguageProvider (get/set language, t function, localStorage persistence)
+- [x] T027 Create HymnProvider in packages/web/providers/hymn-provider.tsx with React Context for hymn data management
+- [x] T028 Implement hymn data loading in HymnProvider (load from /data/hymns.json)
+- [x] T029 Implement useHymns hook in HymnProvider (access all hymns, filter by category)
+- [x] T030 Implement useHymnById hook in HymnProvider (retrieve specific hymn by number)
+- [x] T031 Implement useCategories hook in HymnProvider (access category structure)
+- [x] T032 [P] Create LanguageProvider in packages/web/providers/language-provider.tsx with Context for Polish/English toggle
+- [x] T033 [P] Create Polish translations in packages/web/translations/pl.json (nav, search, song, category, offline, language keys)
+- [x] T034 [P] Create English translations in packages/web/translations/en.json (all UI text in English)
+- [x] T035 [P] Implement useLanguage hook in LanguageProvider (get/set language, t function, localStorage persistence)
 
 ### Application Shell
 
-- [ ] T036 Create root layout in packages/web/app/layout.tsx wrapping HymnProvider and LanguageProvider
-- [ ] T037 Verify HymnProvider and LanguageProvider hooks are accessible from all routes (create test route to validate context availability)
-- [ ] T038 [P] Create global styles in packages/web/styles/globals.css with Tailwind imports
-- [ ] T039 [P] Create common Header component in packages/web/components/layout/header.tsx with language toggle
-- [ ] T040 [P] Create LanguageToggle component in packages/web/components/common/language-toggle.tsx
-- [ ] T041 [P] Create OfflineIndicator component in packages/web/components/common/offline-indicator.tsx
-- [ ] T042 [P] Create useOffline hook in packages/web/hooks/use-offline.ts to detect online/offline status
+- [x] T036 Create root layout in packages/web/app/layout.tsx wrapping HymnProvider and LanguageProvider
+- [x] T037 Verify HymnProvider and LanguageProvider hooks are accessible from all routes (create test route to validate context availability)
+- [x] T038 [P] Create global styles in packages/web/styles/globals.css with Tailwind imports
+- [x] T039 [P] Create common Header component in packages/web/components/layout/header.tsx with language toggle
+- [x] T040 [P] Create LanguageToggle component in packages/web/components/common/language-toggle.tsx
+- [x] T041 [P] Create OfflineIndicator component in packages/web/components/common/offline-indicator.tsx
+- [x] T042 [P] Create useOffline hook in packages/web/hooks/use-offline.ts to detect online/offline status
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
