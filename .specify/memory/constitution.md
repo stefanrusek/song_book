@@ -1,36 +1,37 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version: 1.1.0 → 1.2.0 (MINOR bump - materially expanded technology constraints)
+Version: 1.2.0 → 1.3.0 (MINOR bump - added pre-commit quality gates principle)
 Type: Amendment
-Date: 2026-02-15
+Date: 2026-02-16
 
 Added Sections:
-- Monorepo and Package Management (under Technology Constraints)
+- Principle VII: Pre-Commit Quality Gates (new quality discipline principle)
+- Updated Governance → Compliance section to reference quality gates
 
 Modified Sections:
-- Technology Constraints: Required Stack - Changed package manager from npm to pnpm 10+, added monorepo requirement
-- Development Workflow: Code Organization - Restructured to show monorepo workspace layout
+- Governance → Compliance: Enhanced with quality gate verification requirements
 
 Removed Sections:
 - None
 
 Template Updates:
-⚠️ spec-template.md - no changes required (structure is defined in constitution, not template)
-⚠️ plan-template.md - no changes required (structure is defined in constitution, not template)
-⚠️ tasks-template.md - no changes required (structure is defined in constitution, not template)
+✅ tasks-template.md - Updated to require test coverage checks in task descriptions
+✅ spec-template.md - No changes required (tests optional per spec)
+✅ plan-template.md - No changes required (quality gates are implementation concern)
+⚠️ CLAUDE.md - Should be manually updated to document the quality gate command
 
 Follow-up Actions:
-- Create pnpm-workspace.yaml in repository root
-- Restructure project to monorepo layout with packages/ directory
-- Update package.json to use pnpm scripts
-- Remove package-lock.json if present, ensure pnpm-lock.yaml exists
-- Update README.md to reference pnpm installation and monorepo structure
+- Verify pre-commit hooks are configured (if desired for automation)
+- Document the quality gate command in CLAUDE.md: "pnpm test && pnpm lint && pnpm coverage"
+- Ensure 100% code coverage is measurable and tracked
+- Consider adding a pre-commit hook to enforce quality gates locally
 
 Deferred Items:
 - None
 
 Previous Versions:
+- 1.2.0 (2026-02-15): Added monorepo and package management constraints
 - 1.1.0 (2026-02-15): Added Root Cause Analysis principle
 - 1.0.0 (2026-02-15): Initial constitution with five core principles
 -->
@@ -122,6 +123,20 @@ All commits MUST follow [Conventional Commits](https://www.conventionalcommits.o
 - Mark unvalidated assumptions explicitly for future research
 
 **Rationale**: Understanding root causes prevents building features that address symptoms while leaving problems unsolved. Root cause analysis ensures development effort targets actual problems, reduces rework from misunderstood requirements, prevents solution churn, and leads to more effective features that provide lasting value rather than temporary fixes.
+
+### VII. Pre-Commit Quality Gates
+
+**All code MUST pass linting, testing, and achieve 100% code coverage BEFORE any commit is made.**
+
+- Linting MUST pass with zero errors or warnings (`pnpm lint`)
+- All tests MUST pass with 100% success rate (`pnpm test`)
+- Code coverage MUST be 100% on all new code (`pnpm coverage`)
+- No commits are permitted if any quality gate fails
+- Code that does not meet these standards MUST be fixed before committing
+- WIP (work-in-progress) commits MUST still meet quality gates - save incomplete work to branches instead
+- Pull requests MUST verify quality gates pass in CI before review
+
+**Rationale**: Pre-commit quality gates enforce discipline at the source, preventing defects from entering the codebase. Linting catches style and static analysis issues early. Universal test coverage ensures confidence in code behavior and enables safe refactoring. This discipline reduces debugging time, prevents production issues, and maintains high code quality throughout the project's lifecycle.
 
 ## Development Workflow
 
@@ -251,9 +266,11 @@ This constitution supersedes all other development practices for the Song Book p
 
 - All Pull Requests MUST verify compliance with these principles
 - Code reviews MUST check for type safety, component separation, and commit format adherence
+- Quality gates MUST pass before any commit (Principle VII): linting, tests, 100% code coverage
 - Any violation MUST be justified in writing before merge
 - Complexity that violates simplicity principles MUST document why simpler alternatives were rejected
+- CI/CD pipeline MUST enforce quality gate requirements before code is mergeable
 
 ### Version Control
 
-**Version**: 1.2.0 | **Ratified**: 2026-02-15 | **Last Amended**: 2026-02-15
+**Version**: 1.3.0 | **Ratified**: 2026-02-15 | **Last Amended**: 2026-02-16
