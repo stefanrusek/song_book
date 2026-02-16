@@ -28,9 +28,9 @@
 
 ### Infrastructure Tasks
 
-- [ ] T001 Create test fixtures file at `packages/shared/utils/__tests__/fixtures.ts` with Polish character constants and mock hymn data
-- [ ] T002 [P] Create test utilities file at `packages/shared/utils/__tests__/test-utils.ts` with helper functions for assertion testing
-- [ ] T003 Verify Jest configuration supports TypeScript with strict mode in `packages/shared/jest.config.js` and `packages/web/jest.config.js`
+- [x] T001 Create test fixtures file at `packages/shared/utils/__tests__/fixtures.ts` with Polish character constants and mock hymn data
+- [x] T002 [P] Create test utilities file at `packages/shared/utils/__tests__/test-utils.ts` with helper functions for assertion testing
+- [x] T003 Verify Jest configuration supports TypeScript with strict mode in `packages/shared/jest.config.js` and `packages/web/jest.config.js`
 
 **Checkpoint**: Test infrastructure ready - can now implement user story tests in parallel
 
@@ -46,18 +46,18 @@
 
 ### Normalization Test Suite - Individual Character Tests
 
-- [ ] T004 [P] Create base test file structure at `packages/shared/utils/__tests__/text-normalize.test.ts` with describe blocks for each test category
-- [ ] T005 [P] Implement 9 individual lowercase character tests (ą, ć, ę, ł, ń, ó, ś, ź, ż) in `packages/shared/utils/__tests__/text-normalize.test.ts` verifying each normalizes to base character
-- [ ] T006 [P] Implement 9 individual uppercase character tests (Ą, Ć, Ę, Ł, Ń, Ó, Ś, Ź, Ż) in `packages/shared/utils/__tests__/text-normalize.test.ts` verifying case-insensitive normalization
-- [ ] T007 [P] Implement 8 word normalization tests (Polish words with single/multiple diacriticals: "było"→"bylo", "Jeżeli"→"jezeli", etc.) in `packages/shared/utils/__tests__/text-normalize.test.ts`
-- [ ] T008 [P] Implement 4 phrase normalization tests (multi-word Polish phrases with mixed accented/unaccented) in `packages/shared/utils/__tests__/text-normalize.test.ts`
-- [ ] T009 [P] Implement 4 edge case tests (empty string, non-Polish chars, numbers, special chars, mixed content) in `packages/shared/utils/__tests__/text-normalize.test.ts`
-- [ ] T010 [P] Implement 2 idempotency tests (double normalization, case variation consistency) in `packages/shared/utils/__tests__/text-normalize.test.ts`
+- [x] T004 [P] Create base test file structure at `packages/shared/utils/__tests__/text-normalize.test.ts` with describe blocks for each test category
+- [x] T005 [P] Implement 9 individual lowercase character tests (ą, ć, ę, ł, ń, ó, ś, ź, ż) in `packages/shared/utils/__tests__/text-normalize.test.ts` verifying each normalizes to base character
+- [x] T006 [P] Implement 9 individual uppercase character tests (Ą, Ć, Ę, Ł, Ń, Ó, Ś, Ź, Ż) in `packages/shared/utils/__tests__/text-normalize.test.ts` verifying case-insensitive normalization
+- [x] T007 [P] Implement 8 word normalization tests (Polish words with single/multiple diacriticals: "bylo"→"bylo", "Jeżeli"→"jezeli", etc.) in `packages/shared/utils/__tests__/text-normalize.test.ts`
+- [x] T008 [P] Implement 4 phrase normalization tests (multi-word Polish phrases with mixed accented/unaccented) in `packages/shared/utils/__tests__/text-normalize.test.ts`
+- [x] T009 [P] Implement 4 edge case tests (empty string, non-Polish chars, numbers, special chars, mixed content) in `packages/shared/utils/__tests__/text-normalize.test.ts`
+- [x] T010 [P] Implement 2 idempotency tests (double normalization, case variation consistency) in `packages/shared/utils/__tests__/text-normalize.test.ts`
 
 **Subtotal**: 36+ tests for normalizeText() covering all Polish characters
 
-- [ ] T011 Run normalization tests and verify all pass: `pnpm --filter @songbook/shared test text-normalize.test.ts`
-- [ ] T012 Verify 100% code coverage for normalizeText(): `pnpm --filter @songbook/shared test --coverage text-normalize.test.ts`
+- [x] T011 Run normalization tests and verify all pass: `pnpm --filter @songbook/shared test text-normalize.test.ts`
+- [x] T012 Verify 100% code coverage for normalizeText(): `pnpm --filter @songbook/shared test --coverage text-normalize.test.ts`
 
 **Checkpoint**: normalizeText() fully tested with 100% coverage - foundation ready for search integration tests
 
@@ -71,7 +71,7 @@
 
 ### Search Integration Tests - Accented Query Scenarios
 
-- [ ] T013 [P] [US1] Implement 4 search integration tests for accented queries in `packages/web/lib/__tests__/search-utils.test.ts`:
+- [x] T013 [P] [US1] Implement 4 search integration tests for accented queries in `packages/web/lib/__tests__/search-utils.test.ts`:
   - Test: Query "Było" finds hymn with title "Było" (relevance 0.8)
   - Test: Query "ąćęłńóśźż" finds any hymns containing these characters
   - Test: Query "Ł" (uppercase) finds both "Ł" and "ł" variants (case-insensitive)
@@ -97,13 +97,13 @@
 
 ### Search Integration Tests - Unaccented Query Scenarios (Core Issue)
 
-- [ ] T014 [P] [US2] Implement 4 search integration tests for unaccented queries in `packages/web/lib/__tests__/search-utils.test.ts`:
+- [x] T014 [P] [US2] Implement 4 search integration tests for unaccented queries in `packages/web/lib/__tests__/search-utils.test.ts`:
   - Test: Query "bylo" (unaccented) finds hymn #1 with title "Było" (with ł) - relevance 0.8
   - Test: Query "zal" (unaccented) finds hymn #42 with title "żal" (with ż) - relevance 0.8
   - Test: Query "swieci" (unaccented) finds hymns with "świeci" (with ś) in verses - relevance 0.4
   - Test: Query "piesn" (unaccented) finds hymns with "piesń" (with ń) - relevance varies by field
 
-- [ ] T015 [P] [US2] Implement bidirectional equivalence test in `packages/web/lib/__tests__/search-utils.test.ts`:
+- [x] T015 [P] [US2] Implement bidirectional equivalence test in `packages/web/lib/__tests__/search-utils.test.ts`:
   - Verify: searchHymns(hymns, "bylo").length === searchHymns(hymns, "Było").length
   - Verify: Relevance scores identical for accented and unaccented queries
 
@@ -126,7 +126,7 @@
 
 ### Search Integration Tests - Accented Query Against Unaccented Content
 
-- [ ] T016 [P] [US3] Implement 2 search integration tests for accented queries matching unaccented content in `packages/web/lib/__tests__/search-utils.test.ts`:
+- [x] T016 [P] [US3] Implement 2 search integration tests for accented queries matching unaccented content in `packages/web/lib/__tests__/search-utils.test.ts`:
   - Test: Query "Było" (accented) finds hymn with title "bylo" (unaccented)
   - Test: Query "żal" (accented ż) finds hymn with title "zal" (unaccented)
 
@@ -147,7 +147,7 @@
 
 ### Regression Test Suite
 
-- [ ] T017 [P] Implement 10 regression tests in `packages/web/lib/__tests__/search-utils.test.ts`:
+- [x] T017 [P] Implement 10 regression tests in `packages/web/lib/__tests__/search-utils.test.ts`:
   - Test: Exact number match still works (query "42" returns hymn #42 with relevance 1.0)
   - Test: Title substring match works without diacriticals
   - Test: Author name matching preserved
@@ -161,12 +161,12 @@
 
 ### Performance Testing
 
-- [ ] T018 [P] Implement performance baseline test in `packages/shared/utils/__tests__/text-normalize.test.ts`:
+- [x] T018 [P] Implement performance baseline test in `packages/shared/utils/__tests__/text-normalize.test.ts`:
   - Measure: 1000 normalizeText() calls should complete in <1 second
   - Verify: Average execution time <1ms per call
   - Check: ±20% variance acceptable
 
-- [ ] T019 [P] Implement search performance test in `packages/web/lib/__tests__/search-utils.test.ts`:
+- [x] T019 [P] Implement search performance test in `packages/web/lib/__tests__/search-utils.test.ts`:
   - Measure: Search across 1000 mock hymns should complete in <100ms
   - Verify: Performance within specification
   - Check: ±30% variance acceptable
@@ -181,21 +181,21 @@
 
 ### Validation Tasks
 
-- [ ] T020 Run full test suite and verify all 72+ tests pass:
+- [x] T020 Run full test suite and verify all 72+ tests pass:
   ```bash
   pnpm --filter @songbook/shared test
   pnpm --filter @songbook/web test
   ```
 
-- [ ] T021 Generate coverage report and verify 100% coverage for both functions:
+- [x] T021 Generate coverage report and verify 100% coverage for both functions:
   ```bash
   pnpm --filter @songbook/shared test --coverage
   pnpm --filter @songbook/web test --coverage
   ```
 
-- [ ] T022 Verify test output documentation at `specs/002-fix-search/TEST_RESULTS.md` (auto-generated from coverage)
+- [x] T022 Verify test output documentation at `specs/002-fix-search/TEST_RESULTS.md` (auto-generated from coverage)
 
-- [ ] T023 Run integration test to verify no conflicts with existing search UI in `packages/web/app/page.tsx`
+- [x] T023 Run integration test to verify no conflicts with existing search UI in `packages/web/app/page.tsx`
 
 **Checkpoint**: All tests passing, coverage verified, ready for merge
 
