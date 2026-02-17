@@ -8,7 +8,11 @@
     "placeholder": "Szukaj po numerze, tytule lub zawartości...",
     "noResults": "Nie znaleziono wyników",
     "searching": "Szukanie...",
-    "resultsCount": "Znalezione {count} wyniki"
+    "resultsCount": "Znalezione {count} wyniki",
+    "matchedByNumber": "Dopasowana według numeru",
+    "matchedInTitle": "Dopasowana w tytule",
+    "matchedInVerses": "Dopasowana w zwrotkach",
+    "matchedInChorus": "Dopasowana w refrenie"
   },
   "song": {
     "verse": "Zwrotka",
@@ -21,13 +25,15 @@
     "viewCategory": "Pokaż wszystkie utwory w kategorii",
     "viewSubcategory": "Pokaż wszystkie utwory w podkategorii",
     "notFound": "Utwór nie znaleziony",
-    "ofInCategory": "z {total} w kategorii"
+    "ofInCategory": "z {total} w kategorii",
+    "by": "Autor"
   },
   "category": {
     "allCategories": "Wszystkie kategorie",
     "hymnsInCategory": "Utworów w kategorii",
     "expand": "Rozwiń",
-    "collapse": "Zwiń"
+    "collapse": "Zwiń",
+    "hymns": "Hymny"
   },
   "offline": {
     "indicator": "Tryb offline",

@@ -58,6 +58,10 @@ export type TranslationDictionary = {
     noResults: string
     searching: string
     resultsCount: string
+    matchedByNumber: string
+    matchedInTitle: string
+    matchedInVerses: string
+    matchedInChorus: string
   }
   song: {
     verse: string
@@ -71,12 +75,14 @@ export type TranslationDictionary = {
     viewSubcategory: string
     notFound: string
     ofInCategory: string
+    by: string
   }
   category: {
     allCategories: string
     hymnsInCategory: string
     expand: string
     collapse: string
+    hymns: string
   }
   offline: {
     indicator: string

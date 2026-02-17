@@ -11,6 +11,18 @@ jest.mock('next/link', () => {
   )
 })
 
+// Mock language provider
+jest.mock('@/providers/language-provider', () => ({
+  useLanguage: () => ({
+    t: (key: string) => {
+      const translations: Record<string, string> = {
+        'category.hymns': 'Hymns',
+      }
+      return translations[key] || key
+    },
+  }),
+}))
+
 describe('CategoryItem', () => {
   const mockSubcategory: SubcategoryInfo = {
     number: 101,
