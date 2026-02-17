@@ -40,3 +40,15 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 /**/node_modules/
+/packages/shared/coverage/lcov-report/base.css
+/packages/shared/coverage/lcov-report/block-navigation.js
+/packages/shared/coverage/lcov-report/favicon.png
+/packages/shared/coverage/lcov-report/index.html
+/packages/shared/coverage/lcov-report/prettify.css
+/packages/shared/coverage/lcov-report/prettify.js
+/packages/shared/coverage/lcov-report/sort-arrow-sprite.png
+/packages/shared/coverage/lcov-report/sorter.js
+/packages/shared/coverage/lcov-report/text-normalize.ts.html
+/packages/shared/coverage/clover.xml
+/packages/shared/coverage/coverage-final.json
+/packages/shared/coverage/lcov.info

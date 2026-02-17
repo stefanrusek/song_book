@@ -3,6 +3,8 @@
 Auto-generated from all feature plans. Last updated: 2026-02-15
 
 ## Active Technologies
+- TypeScript 5+ with strict mode + React 19+, Next.js 16+ (App Router), pnpm 10+ (004-fix-missing-translations)
+- Translation JSON files (`public/translations/en.json`, `public/translations/pl.json`) (004-fix-missing-translations)
 
 - **Node.js 24.x** (use `nvm use` or `docker run node:24`, see `.claude/rules/510-node-version-management.md`)
 - **pnpm 10+** (package manager, npm and yarn are forbidden, see `.claude/rules/520-pnpm-package-manager.md`)
@@ -46,6 +48,7 @@ See `.claude/rules/510-node-version-management.md` for detailed instructions.
 TypeScript 5+ with strict mode enabled: Follow standard conventions
 
 ## Recent Changes
+- 004-fix-missing-translations: Added TypeScript 5+ with strict mode + React 19+, Next.js 16+ (App Router), pnpm 10+
 
 - 002-fix-search: Added Pre-Commit Quality Gates (Principle VII in constitution v1.3.0)
 - 001-polish-songbook-app: Added TypeScript 5+ with strict mode enabled
