@@ -58,10 +58,10 @@ export function SearchResults({ results, query, isLoading }: SearchResultsProps)
                   #{result.hymn.number.toString().padStart(3, '0')} - {result.hymn.title}
                 </h3>
                 <p className="text-xs text-gray-500 mt-1">
-                  {result.matchType === 'number' && 'Matched by number'}
-                  {result.matchType === 'title' && `Matched in title`}
-                  {result.matchType === 'verse' && 'Matched in verses'}
-                  {result.matchType === 'chorus' && 'Matched in chorus'}
+                  {result.matchType === 'number' && t('search.matchedByNumber')}
+                  {result.matchType === 'title' && t('search.matchedInTitle')}
+                  {result.matchType === 'verse' && t('search.matchedInVerses')}
+                  {result.matchType === 'chorus' && t('search.matchedInChorus')}
                 </p>
               </div>
               <div className="ml-2 px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded font-medium">

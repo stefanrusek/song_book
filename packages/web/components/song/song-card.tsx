@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import type { Hymn } from '@songbook/shared/types'
+import { useLanguage } from '@/providers/language-provider'
 
 type SongCardProps = {
   hymn: Hymn
@@ -9,6 +10,7 @@ type SongCardProps = {
 }
 
 export function SongCard({ hymn, isHighlighted }: SongCardProps) {
+  const { t } = useLanguage()
   return (
     <Link
       href={`/song/${hymn.number}`}
@@ -25,10 +27,10 @@ export function SongCard({ hymn, isHighlighted }: SongCardProps) {
           </div>
           <h3 className="font-semibold text-gray-900 line-clamp-2 mb-2">{hymn.title}</h3>
           {hymn.author && (
-            <p className="text-xs text-gray-600 line-clamp-1">by {hymn.author}</p>
+            <p className="text-xs text-gray-600 line-clamp-1">{t('song.by')} {hymn.author}</p>
           )}
           {hymn.key && (
-            <p className="text-xs text-gray-500 mt-1">Key: {hymn.key}</p>
+            <p className="text-xs text-gray-500 mt-1">{t('song.key')}: {hymn.key}</p>
           )}
         </div>
         {isHighlighted && (

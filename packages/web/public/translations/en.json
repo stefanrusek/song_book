@@ -8,7 +8,11 @@
     "placeholder": "Search by number, title, or content...",
     "noResults": "No results found",
     "searching": "Searching...",
-    "resultsCount": "Found {count} results"
+    "resultsCount": "Found {count} results",
+    "matchedByNumber": "Matched by number",
+    "matchedInTitle": "Matched in title",
+    "matchedInVerses": "Matched in verses",
+    "matchedInChorus": "Matched in chorus"
   },
   "song": {
     "verse": "Verse",
@@ -21,13 +25,15 @@
     "viewCategory": "View all songs in category",
     "viewSubcategory": "View all songs in subcategory",
     "notFound": "Song not found",
-    "ofInCategory": "of {total} in category"
+    "ofInCategory": "of {total} in category",
+    "by": "by"
   },
   "category": {
     "allCategories": "All Categories",
     "hymnsInCategory": "Songs in Category",
     "expand": "Expand",
-    "collapse": "Collapse"
+    "collapse": "Collapse",
+    "hymns": "Hymns"
   },
   "offline": {
     "indicator": "Offline Mode",

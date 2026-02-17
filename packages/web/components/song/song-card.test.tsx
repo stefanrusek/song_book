@@ -6,6 +6,19 @@ jest.mock('next/link', () => {
   return ({ children, href }: any) => <a href={href}>{children}</a>
 })
 
+// Mock language provider
+jest.mock('@/providers/language-provider', () => ({
+  useLanguage: () => ({
+    t: (key: string) => {
+      const translations: Record<string, string> = {
+        'song.by': 'by',
+        'song.key': 'Key',
+      }
+      return translations[key] || key
+    },
+  }),
+}))
+
 describe('SongCard', () => {
   const mockHymn: Hymn = {
     number: 42,

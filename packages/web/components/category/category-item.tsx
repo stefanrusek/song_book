@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import type { SubcategoryInfo } from '@songbook/shared/types'
+import { useLanguage } from '@/providers/language-provider'
 
 type CategoryItemProps = {
   subcategory: SubcategoryInfo
@@ -9,6 +10,7 @@ type CategoryItemProps = {
 
 export function CategoryItem({ subcategory }: CategoryItemProps) {
   const hymnCount = subcategory.hymnRange.end - subcategory.hymnRange.start + 1
+  const { t } = useLanguage()
 
   return (
     <Link
@@ -19,7 +21,7 @@ export function CategoryItem({ subcategory }: CategoryItemProps) {
         <div>
           <h4 className="font-medium text-gray-900">{subcategory.name}</h4>
           <p className="text-xs text-gray-500 mt-1">
-            Hymns {subcategory.hymnRange.start}-{subcategory.hymnRange.end} ({hymnCount})
+            {t('category.hymns')} {subcategory.hymnRange.start}-{subcategory.hymnRange.end} ({hymnCount})
           </p>
         </div>
         <span className="text-gray-400 text-sm">→</span>
