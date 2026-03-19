@@ -1,8 +1,9 @@
-@import "tailwindcss";
+@import "tailwindcss" dark(media);
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --verse-border: #d1d5db;
 }
 
 @theme inline {
@@ -16,6 +17,7 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --verse-border: #4b5563;
   }
 }
 
@@ -54,7 +56,7 @@ p {
   line-height: 1.8;
   margin-bottom: 1.5em;
   padding-left: 1em;
-  border-left: 2px solid #ccc;
+  border-left: 2px solid var(--verse-border);
 }
 
 /* Loading state */

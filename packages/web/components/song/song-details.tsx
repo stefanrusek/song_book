@@ -13,16 +13,16 @@ export function SongDetails({ hymn }: SongDetailsProps) {
   const { t } = useLanguage()
 
   return (
-    <article className="bg-white rounded-lg shadow-md p-6 md:p-8 max-w-3xl">
+    <article className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 md:p-8 max-w-3xl">
       {/* Header with number and title */}
       <div className="mb-6 border-b pb-4">
-        <div className="text-sm text-gray-500 font-semibold mb-2">
+        <div className="text-sm text-gray-500 dark:text-gray-400 font-semibold mb-2">
           #{hymn.number.toString().padStart(3, '0')}
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{hymn.title}</h1>
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">{hymn.title}</h1>
 
         {/* Key and metadata */}
-        <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+        <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-300">
           {hymn.key && (
             <div>
               <span className="font-semibold">{t('song.key')}:</span> {hymn.key}
@@ -51,7 +51,7 @@ export function SongDetails({ hymn }: SongDetailsProps) {
         {hymn.verses.map((verse, index) => (
           <div key={index} className="mb-6">
             {hymn.verses.length > 1 && (
-              <h3 className="text-lg font-semibold text-gray-700 mb-2">
+              <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
                 {t('song.verse')} {index + 1}
               </h3>
             )}
@@ -62,7 +62,7 @@ export function SongDetails({ hymn }: SongDetailsProps) {
 
       {/* Chorus */}
       {hymn.chorus && (
-        <div className="bg-blue-50 rounded-lg p-4 border-l-4 border-blue-400">
+        <div className="bg-blue-50 dark:bg-blue-950 rounded-lg p-4 border-l-4 border-blue-400">
           <h3 className="text-lg font-semibold text-gray-700 mb-2">{t('song.chorus')}</h3>
           <VerseDisplay text={hymn.chorus} />
         </div>

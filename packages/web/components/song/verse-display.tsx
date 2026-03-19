@@ -6,7 +6,7 @@ type VerseDisplayProps = {
 
 export function VerseDisplay({ text }: VerseDisplayProps) {
   return (
-    <p className="verse text-gray-800 whitespace-pre-wrap leading-relaxed font-serif">
+    <p className="verse text-gray-800 dark:text-gray-200 whitespace-pre-wrap leading-relaxed font-serif">
       {text}
     </p>
   )

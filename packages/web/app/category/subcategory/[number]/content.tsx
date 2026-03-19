@@ -36,8 +36,8 @@ export function SubcategoryPageContent({
   if (!subcategoryInfo) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-12 text-center">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">{t('song.notFound')}</h1>
-        <p className="text-gray-600">Subcategory not found.</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('song.notFound')}</h1>
+        <p className="text-gray-600 dark:text-gray-300">Subcategory not found.</p>
         <a
           href="/"
           className="mt-6 inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
@@ -61,18 +61,18 @@ export function SubcategoryPageContent({
         <a href="/" className="text-blue-600 hover:text-blue-700">
           {t('nav.home')}
         </a>
-        <span className="mx-2 text-gray-400">›</span>
-        <span className="text-gray-600">{categoryName}</span>
-        <span className="mx-2 text-gray-400">›</span>
-        <span className="text-gray-900 font-semibold">{subcategoryInfo.name}</span>
+        <span className="mx-2 text-gray-400 dark:text-gray-500">›</span>
+        <span className="text-gray-600 dark:text-gray-300">{categoryName}</span>
+        <span className="mx-2 text-gray-400 dark:text-gray-500">›</span>
+        <span className="text-gray-900 dark:text-gray-100 font-semibold">{subcategoryInfo.name}</span>
       </div>
 
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">
           {subcategoryInfo.name}
         </h1>
-        <p className="text-gray-600">
+        <p className="text-gray-600 dark:text-gray-300">
           {t('category.hymnsInCategory')}: {hymnsInSubcategory.length}
         </p>
       </div>
@@ -92,7 +92,7 @@ export function SubcategoryPageContent({
       <div className="mt-12 text-center">
         <a
           href="/"
-          className="inline-block px-6 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition"
+          className="inline-block px-6 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition"
         >
           ← {t('nav.home')}
         </a>

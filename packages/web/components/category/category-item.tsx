@@ -15,16 +15,16 @@ export function CategoryItem({ subcategory }: CategoryItemProps) {
   return (
     <Link
       href={`/category/subcategory/${subcategory.number}`}
-      className="block px-4 py-3 border-b border-gray-100 hover:bg-blue-50 transition"
+      className="block px-4 py-3 border-b border-gray-100 dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-blue-950 transition"
     >
       <div className="flex items-center justify-between">
         <div>
-          <h4 className="font-medium text-gray-900">{subcategory.name}</h4>
-          <p className="text-xs text-gray-500 mt-1">
+          <h4 className="font-medium text-gray-900 dark:text-gray-100">{subcategory.name}</h4>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
             {t('category.hymns')} {subcategory.hymnRange.start}-{subcategory.hymnRange.end} ({hymnCount})
           </p>
         </div>
-        <span className="text-gray-400 text-sm">→</span>
+        <span className="text-gray-400 dark:text-gray-500 text-sm">→</span>
       </div>
     </Link>
   )

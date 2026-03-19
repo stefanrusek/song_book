@@ -19,7 +19,7 @@ export function SongPageContent({ number }: SongPageContentProps) {
         <div className="inline-block">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
         </div>
-        <p className="mt-4 text-gray-600">{t('search.searching')}</p>
+        <p className="mt-4 text-gray-600 dark:text-gray-300">{t('search.searching')}</p>
       </div>
     )
   }
@@ -28,7 +28,7 @@ export function SongPageContent({ number }: SongPageContentProps) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-12 text-center">
         <h1 className="text-2xl font-bold text-red-600 mb-4">Error</h1>
-        <p className="text-gray-600 mb-6">{dataError}</p>
+        <p className="text-gray-600 dark:text-gray-300 mb-6">{dataError}</p>
         <a
           href="/"
           className="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
@@ -45,8 +45,8 @@ export function SongPageContent({ number }: SongPageContentProps) {
   if (!hymnData) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-12 text-center">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">{t('song.notFound')}</h1>
-        <p className="text-gray-600">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('song.notFound')}</h1>
+        <p className="text-gray-600 dark:text-gray-300">
           {`Song #${number} could not be found in the hymnal.`}
         </p>
         <a
@@ -67,7 +67,7 @@ export function SongPageContent({ number }: SongPageContentProps) {
       <div className="mt-8 text-center">
         <a
           href="/"
-          className="inline-block px-6 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition"
+          className="inline-block px-6 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition"
         >
           ← {t('nav.home')}
         </a>

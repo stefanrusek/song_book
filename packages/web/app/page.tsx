@@ -17,8 +17,8 @@ export default function Home() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8 md:py-12">
       <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Śpiewajmy Panu</h1>
-        <p className="text-lg text-gray-600">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">Śpiewajmy Panu</h1>
+        <p className="text-lg text-gray-600 dark:text-gray-300">
           {t('nav.categories')} - Digital Edition
         </p>
       </div>
@@ -43,7 +43,7 @@ export default function Home() {
       {/* Categories Section - only show if not searching */}
       {!hasQuery && (
         <div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">{t('category.allCategories')}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">{t('category.allCategories')}</h2>
           <CategoryAccordion categories={categories} />
         </div>
       )}

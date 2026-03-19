@@ -16,21 +16,21 @@ export function SongCard({ hymn, isHighlighted }: SongCardProps) {
       href={`/song/${hymn.number}`}
       className={`block p-4 rounded-lg border transition ${
         isHighlighted
-          ? 'bg-blue-50 border-blue-400 shadow-md'
-          : 'bg-white border-gray-200 hover:shadow-md hover:border-blue-300'
+          ? 'bg-blue-50 dark:bg-blue-950 border-blue-400 dark:border-blue-500 shadow-md'
+          : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:shadow-md hover:border-blue-300'
       }`}
     >
       <div className="flex items-start justify-between">
         <div className="flex-1">
-          <div className="text-sm text-gray-500 font-semibold mb-2">
+          <div className="text-sm text-gray-500 dark:text-gray-400 font-semibold mb-2">
             #{hymn.number.toString().padStart(3, '0')}
           </div>
-          <h3 className="font-semibold text-gray-900 line-clamp-2 mb-2">{hymn.title}</h3>
+          <h3 className="font-semibold text-gray-900 dark:text-gray-100 line-clamp-2 mb-2">{hymn.title}</h3>
           {hymn.author && (
-            <p className="text-xs text-gray-600 line-clamp-1">{t('song.by')} {hymn.author}</p>
+            <p className="text-xs text-gray-600 dark:text-gray-300 line-clamp-1">{t('song.by')} {hymn.author}</p>
           )}
           {hymn.key && (
-            <p className="text-xs text-gray-500 mt-1">{t('song.key')}: {hymn.key}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t('song.key')}: {hymn.key}</p>
           )}
         </div>
         {isHighlighted && (
