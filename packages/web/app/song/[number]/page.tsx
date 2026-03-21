@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { SongPageContent } from './content'
 
 type PageProps = {
@@ -21,12 +22,12 @@ export default async function SongPage({ params }: PageProps) {
         <p className="text-gray-600">
           {`The song number "${numberStr}" is invalid. Please enter a number between 1 and 700.`}
         </p>
-        <a
+        <Link
           href="/"
           className="mt-6 inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
         >
           Home
-        </a>
+        </Link>
       </div>
     )
   }

@@ -1,4 +1,4 @@
-import { renderHook, act, waitFor } from '@testing-library/react'
+import { renderHook, act } from '@testing-library/react'
 import { useDebounce } from './use-debounce'
 
 describe('useDebounce', () => {
@@ -146,7 +146,7 @@ describe('useDebounce', () => {
     const obj2 = { name: 'test', value: 2 }
 
     const { result, rerender } = renderHook(
-      ({ value, delay }: { value: Record<string, any>; delay: number }) => useDebounce(value, delay),
+      ({ value, delay }: { value: Record<string, unknown>; delay: number }) => useDebounce(value, delay),
       { initialProps: { value: obj1, delay: 300 } }
     )
 

@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import { useOffline } from '@/hooks/use-offline'
 import { OfflineIndicator } from './offline-indicator'
 
 // Mock hooks
@@ -20,8 +21,7 @@ jest.mock('@/providers/language-provider', () => ({
 
 describe('OfflineIndicator', () => {
   it('should not render when online', () => {
-    const { useOffline } = require('@/hooks/use-offline')
-    useOffline.mockReturnValue(false)
+    jest.mocked(useOffline).mockReturnValue(false)
 
     const { container } = render(<OfflineIndicator />)
 
@@ -29,8 +29,7 @@ describe('OfflineIndicator', () => {
   })
 
   it('should render when offline', () => {
-    const { useOffline } = require('@/hooks/use-offline')
-    useOffline.mockReturnValue(true)
+    jest.mocked(useOffline).mockReturnValue(true)
 
     render(<OfflineIndicator />)
 
@@ -38,8 +37,7 @@ describe('OfflineIndicator', () => {
   })
 
   it('should display offline message', () => {
-    const { useOffline } = require('@/hooks/use-offline')
-    useOffline.mockReturnValue(true)
+    jest.mocked(useOffline).mockReturnValue(true)
 
     render(<OfflineIndicator />)
 
@@ -47,8 +45,7 @@ describe('OfflineIndicator', () => {
   })
 
   it('should have correct positioning classes', () => {
-    const { useOffline } = require('@/hooks/use-offline')
-    useOffline.mockReturnValue(true)
+    jest.mocked(useOffline).mockReturnValue(true)
 
     const { container } = render(<OfflineIndicator />)
 
@@ -57,8 +54,7 @@ describe('OfflineIndicator', () => {
   })
 
   it('should have correct styling classes', () => {
-    const { useOffline } = require('@/hooks/use-offline')
-    useOffline.mockReturnValue(true)
+    jest.mocked(useOffline).mockReturnValue(true)
 
     const { container } = render(<OfflineIndicator />)
 
@@ -67,8 +63,7 @@ describe('OfflineIndicator', () => {
   })
 
   it('should render pulse indicator dot', () => {
-    const { useOffline } = require('@/hooks/use-offline')
-    useOffline.mockReturnValue(true)
+    jest.mocked(useOffline).mockReturnValue(true)
 
     const { container } = render(<OfflineIndicator />)
 
@@ -78,8 +73,7 @@ describe('OfflineIndicator', () => {
   })
 
   it('should have flex layout with gap', () => {
-    const { useOffline } = require('@/hooks/use-offline')
-    useOffline.mockReturnValue(true)
+    jest.mocked(useOffline).mockReturnValue(true)
 
     const { container } = render(<OfflineIndicator />)
 
@@ -88,8 +82,7 @@ describe('OfflineIndicator', () => {
   })
 
   it('should display both indicator and message', () => {
-    const { useOffline } = require('@/hooks/use-offline')
-    useOffline.mockReturnValue(true)
+    jest.mocked(useOffline).mockReturnValue(true)
 
     const { container } = render(<OfflineIndicator />)
 

@@ -1,28 +1,30 @@
+import React from 'react'
 import { render, screen } from '@testing-library/react'
 import type { Hymn } from '@songbook/shared/types'
 import { CategoryBadge } from './category-badge'
 
 jest.mock('next/link', () => {
-  return ({ children, href }: any) => (
-    <a href={href} data-testid={`badge-link-${href}`}>
-      {children}
-    </a>
-  )
+  function MockLink({ children, href }: { children: React.ReactNode; href: string }) {
+    return <a href={href} data-testid={`badge-link-${href}`}>{children}</a>
+  }
+  return MockLink
 })
 
 describe('CategoryBadge', () => {
   const mockHymn: Hymn = {
     number: 42,
     title: 'Test Hymn',
+    key: null,
     author: 'Test Author',
-    book: 'Test Book',
-    chapter: 5,
+    translator: null,
+    verses: ['Test verse'],
+    chorus: null,
+    category: 'I. NABOŻEŃSTWO',
     subcategory: {
       number: 101,
       name: 'Test Subcategory',
-      hymnRange: { start: 1, end: 50 },
     },
-    verses: [{ type: 'verse', content: 'Test verse' }],
+    fullText: 'Test Hymn Test Author Test verse',
   }
 
   it('should render subcategory name', () => {
@@ -69,7 +71,6 @@ describe('CategoryBadge', () => {
       subcategory: {
         number: 205,
         name: 'Different Subcategory',
-        hymnRange: { start: 51, end: 100 },
       },
     }
 

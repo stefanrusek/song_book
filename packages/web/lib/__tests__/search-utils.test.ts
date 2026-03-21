@@ -6,8 +6,9 @@
  * Tests: 23+ covering all user stories and edge cases
  */
 
+import type { Hymn } from '@songbook/shared/types'
 import { searchHymns } from '../search-utils'
-import { MOCK_HYMNS, SEARCH_TEST_SCENARIOS, REGRESSION_TEST_DATA } from '../../../shared/utils/__tests__/fixtures'
+import { MOCK_HYMNS } from '../../../shared/utils/__tests__/fixtures'
 import {
   expectSearchMatches,
   expectRelevanceScore,
@@ -17,8 +18,6 @@ import {
   validateSearchResult,
 } from '../../../shared/utils/__tests__/test-utils'
 
-// Type stub for testing (prevents import errors if SearchResult type differs)
-type SearchResult = ReturnType<typeof searchHymns>[0]
 
 describe('searchHymns - Polish Diacritical Search Integration', () => {
   // =================================================================
@@ -337,6 +336,25 @@ describe('searchHymns - Polish Diacritical Search Integration', () => {
     test('all test suites should pass', () => {
       // This test serves as a summary checkpoint
       expect(true).toBe(true)
+    })
+  })
+
+  describe('Edge Cases - null/undefined verses', () => {
+    test('skips null verse entries in the array', () => {
+      const hymnWithNullVerse: Hymn = {
+        number: 999,
+        title: 'Test Null Verse',
+        key: null,
+        author: 'Author',
+        translator: null,
+        verses: [null as unknown as string, 'findme verse text'] as string[],
+        chorus: null,
+        category: 'I. TEST',
+        subcategory: { number: 1, name: 'Sub' },
+        fullText: 'Test Null Verse Author findme verse text',
+      }
+      const results = searchHymns([hymnWithNullVerse], 'findme')
+      expect(results.length).toBeGreaterThan(0)
     })
   })
 })

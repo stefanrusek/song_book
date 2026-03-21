@@ -18,7 +18,7 @@ jest.mock('@/providers/language-provider', () => ({
 }))
 
 jest.mock('./verse-display', () => ({
-  VerseDisplay: ({ text }: any) => <div>{text?.content || text}</div>,
+  VerseDisplay: ({ text }: { text: string }) => <div>{text}</div>,
 }))
 
 jest.mock('./category-badge', () => ({
@@ -29,13 +29,14 @@ describe('SongDetails', () => {
   const mockHymn: Hymn = {
     number: 42,
     title: 'Test Hymn',
-    author: 'Author',
-    book: 'Book',
-    chapter: 1,
     key: 'D',
-    subcategory: { number: 1, name: 'Sub', hymnRange: { start: 1, end: 50 } },
-    verses: [{ type: 'verse', content: 'Verse 1' }],
-    chorus: { type: 'chorus', content: 'Chorus' },
+    author: 'Author',
+    translator: null,
+    verses: ['Verse 1 content'],
+    chorus: 'Chorus text',
+    category: 'I. NABOŻEŃSTWO',
+    subcategory: { number: 1, name: 'Sub' },
+    fullText: 'Test Hymn Author Verse 1 content Chorus text',
   }
 
   it('should render hymn number', () => {
@@ -67,5 +68,21 @@ describe('SongDetails', () => {
     const { container } = render(<SongDetails hymn={mockHymn} />)
     const choruses = container.querySelectorAll('.bg-blue-50')
     expect(choruses.length).toBeGreaterThan(0)
+  })
+
+  it('should render translator when present', () => {
+    const hymnWithTranslator: Hymn = { ...mockHymn, translator: 'Translator Name' }
+    render(<SongDetails hymn={hymnWithTranslator} />)
+    expect(screen.getByText('Translator Name')).toBeInTheDocument()
+  })
+
+  it('should render verse labels when multiple verses', () => {
+    const hymnWithMultipleVerses: Hymn = {
+      ...mockHymn,
+      verses: ['First verse content', 'Second verse content'],
+    }
+    render(<SongDetails hymn={hymnWithMultipleVerses} />)
+    const verseLabels = screen.getAllByText(/^Verse \d$/)
+    expect(verseLabels.length).toBe(2)
   })
 })

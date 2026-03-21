@@ -2,7 +2,8 @@ import { renderHook, act } from '@testing-library/react'
 import { useOffline } from './use-offline'
 
 describe('useOffline', () => {
-  let onlineEventListeners: Record<string, Function[]> = {}
+  type EventHandler = () => void
+  let onlineEventListeners: { online: EventHandler[]; offline: EventHandler[] }
   let navigatorOnLine: boolean
 
   beforeEach(() => {
@@ -16,11 +17,8 @@ describe('useOffline', () => {
     }
 
     Object.defineProperty(window, 'addEventListener', {
-      value: jest.fn((event: string, handler: Function) => {
+      value: jest.fn((event: string, handler: () => void) => {
         if (event === 'online' || event === 'offline') {
-          if (!onlineEventListeners[event]) {
-            onlineEventListeners[event] = []
-          }
           onlineEventListeners[event].push(handler)
         }
       }),
@@ -28,9 +26,9 @@ describe('useOffline', () => {
     })
 
     Object.defineProperty(window, 'removeEventListener', {
-      value: jest.fn((event: string, handler: Function) => {
-        if (onlineEventListeners[event]) {
-          onlineEventListeners[event] = onlineEventListeners[event].filter((h) => h !== handler)
+      value: jest.fn((event: string, handler: () => void) => {
+        if (event === 'online' || event === 'offline') {
+          onlineEventListeners[event] = onlineEventListeners[event].filter((h: EventHandler) => h !== handler)
         }
       }),
       writable: true,

@@ -12,7 +12,7 @@ export function LanguageToggle() {
         className={`px-3 py-2 rounded-md transition ${
           language === 'pl'
             ? 'bg-blue-700 text-white'
-            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+            : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600'
         }`}
         aria-label="Polish language"
       >
@@ -23,7 +23,7 @@ export function LanguageToggle() {
         className={`px-3 py-2 rounded-md transition ${
           language === 'en'
             ? 'bg-blue-700 text-white'
-            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+            : 'bg-gray-200 text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600'
         }`}
         aria-label="English language"
       >

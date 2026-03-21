@@ -22,7 +22,7 @@ export function SearchResults({ results, query, isLoading }: SearchResultsProps)
   if (isLoading) {
     return (
       <div className="text-center py-8">
-        <p className="text-gray-600">{t('search.searching')}</p>
+        <p className="text-gray-600 dark:text-gray-300">{t('search.searching')}</p>
       </div>
     )
   }
@@ -31,8 +31,8 @@ export function SearchResults({ results, query, isLoading }: SearchResultsProps)
   if (results.length === 0) {
     return (
       <div className="text-center py-8">
-        <p className="text-gray-600 font-semibold mb-2">{t('search.noResults')}</p>
-        <p className="text-sm text-gray-500">
+        <p className="text-gray-600 dark:text-gray-300 font-semibold mb-2">{t('search.noResults')}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400">
           {`"${query}"`}
         </p>
       </div>
@@ -41,7 +41,7 @@ export function SearchResults({ results, query, isLoading }: SearchResultsProps)
 
   return (
     <div>
-      <p className="text-sm text-gray-600 mb-4">
+      <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
         {t('search.resultsCount').replace('{count}', results.length.toString())}
       </p>
 
@@ -50,28 +50,28 @@ export function SearchResults({ results, query, isLoading }: SearchResultsProps)
           <Link
             key={`${result.hymn.number}-${result.matchType}`}
             href={`/song/${result.hymn.number}`}
-            className="block p-4 bg-white rounded-lg border border-gray-200 hover:shadow-md hover:border-blue-400 transition"
+            className="block p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-md hover:border-blue-400 transition"
           >
             <div className="flex items-start justify-between mb-2">
               <div>
-                <h3 className="font-semibold text-gray-900">
+                <h3 className="font-semibold text-gray-900 dark:text-gray-100">
                   #{result.hymn.number.toString().padStart(3, '0')} - {result.hymn.title}
                 </h3>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                   {result.matchType === 'number' && t('search.matchedByNumber')}
                   {result.matchType === 'title' && t('search.matchedInTitle')}
                   {result.matchType === 'verse' && t('search.matchedInVerses')}
                   {result.matchType === 'chorus' && t('search.matchedInChorus')}
                 </p>
               </div>
-              <div className="ml-2 px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded font-medium">
+              <div className="ml-2 px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded font-medium">
                 {(result.relevance * 100).toFixed(0)}%
               </div>
             </div>
 
             {result.matchContext && (
-              <p className="text-sm text-gray-600 line-clamp-2 italic">
-                "{result.matchContext}"
+              <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 italic">
+                &ldquo;{result.matchContext}&rdquo;
               </p>
             )}
           </Link>
