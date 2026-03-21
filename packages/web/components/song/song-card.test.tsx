@@ -27,11 +27,14 @@ describe('SongCard', () => {
   const mockHymn: Hymn = {
     number: 42,
     title: 'Test Hymn',
+    key: null,
     author: 'Author',
-    book: 'Book',
-    chapter: 1,
-    subcategory: { number: 1, name: 'Sub', hymnRange: { start: 1, end: 50 } },
-    verses: [{ type: 'verse', content: 'Verse' }],
+    translator: null,
+    verses: ['Verse text'],
+    chorus: null,
+    category: 'I. NABOŻEŃSTWO',
+    subcategory: { number: 1, name: 'Sub' },
+    fullText: 'Test Hymn Author Verse text',
   }
 
   it('should render hymn title', () => {
@@ -60,7 +63,7 @@ describe('SongCard', () => {
   })
 
   it('should display key when hymn has key property', () => {
-    const hymnWithKey = { ...mockHymn, key: 'D major' }
+    const hymnWithKey: Hymn = { ...mockHymn, key: 'D major' }
     render(<SongCard hymn={hymnWithKey} />)
     expect(screen.getByText(/D major/)).toBeInTheDocument()
   })

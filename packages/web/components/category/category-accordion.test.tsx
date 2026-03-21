@@ -10,6 +10,7 @@ describe('CategoryAccordion', () => {
   const mockCategories: Category[] = [
     {
       number: '1',
+      name: 'Test',
       displayName: 'Test Category',
       subcategories: [
         { number: 101, name: 'Sub 1', hymnRange: { start: 1, end: 10 } },

@@ -6,6 +6,7 @@
  * Tests: 23+ covering all user stories and edge cases
  */
 
+import type { Hymn } from '@songbook/shared/types'
 import { searchHymns } from '../search-utils'
 import { MOCK_HYMNS } from '../../../shared/utils/__tests__/fixtures'
 import {
@@ -343,11 +344,14 @@ describe('searchHymns - Polish Diacritical Search Integration', () => {
       const hymnWithNullVerse: Hymn = {
         number: 999,
         title: 'Test Null Verse',
+        key: null,
         author: 'Author',
-        book: 'Book',
-        chapter: 1,
-        subcategory: { number: 1, name: 'Sub', hymnRange: { start: 999, end: 999 } },
+        translator: null,
         verses: [null as unknown as string, 'findme verse text'] as string[],
+        chorus: null,
+        category: 'I. TEST',
+        subcategory: { number: 1, name: 'Sub' },
+        fullText: 'Test Null Verse Author findme verse text',
       }
       const results = searchHymns([hymnWithNullVerse], 'findme')
       expect(results.length).toBeGreaterThan(0)
