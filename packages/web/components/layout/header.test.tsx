@@ -1,8 +1,12 @@
+import React from 'react'
 import { render, screen } from '@testing-library/react'
 import { Header } from './header'
 
 jest.mock('next/link', () => {
-  return ({ children, href }: any) => <a href={href}>{children}</a>
+  function MockLink({ children, href }: { children: React.ReactNode; href: string }) {
+    return <a href={href}>{children}</a>
+  }
+  return MockLink
 })
 
 jest.mock('@/providers/language-provider', () => ({

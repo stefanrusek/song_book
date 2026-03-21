@@ -34,13 +34,13 @@ jest.mock('@/hooks/use-search', () => ({
 }))
 
 jest.mock('@/components/category/category-accordion', () => ({
-  CategoryAccordion: ({ categories }: any) => (
+  CategoryAccordion: ({ categories }: { categories: unknown[] }) => (
     <div data-testid="category-accordion">{categories.length} categories</div>
   ),
 }))
 
 jest.mock('@/components/search/search-box', () => ({
-  SearchBox: ({ onQueryChange }: any) => (
+  SearchBox: ({ onQueryChange }: { onQueryChange: (q: string) => void }) => (
     <input
       data-testid="search-box"
       onChange={(e) => onQueryChange(e.target.value)}
@@ -50,9 +50,9 @@ jest.mock('@/components/search/search-box', () => ({
 }))
 
 jest.mock('@/components/search/search-results', () => ({
-  SearchResults: ({ results, query }: any) => (
+  SearchResults: ({ results, query }: { results: unknown[]; query: string }) => (
     <div data-testid="search-results">
-      {results.length} results for "{query}"
+      {results.length} results for {query}
     </div>
   ),
 }))

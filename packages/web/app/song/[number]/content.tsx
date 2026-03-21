@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useHymnById, useHymnLoading } from '@/providers/hymn-provider'
 import { useLanguage } from '@/providers/language-provider'
 import { SongDetails } from '@/components/song/song-details'
@@ -12,6 +13,7 @@ type SongPageContentProps = {
 export function SongPageContent({ number }: SongPageContentProps) {
   const { isLoading, error: dataError } = useHymnLoading()
   const { t } = useLanguage()
+  const hymnData = useHymnById(number)
 
   if (isLoading) {
     return (
@@ -29,18 +31,15 @@ export function SongPageContent({ number }: SongPageContentProps) {
       <div className="max-w-3xl mx-auto px-4 py-12 text-center">
         <h1 className="text-2xl font-bold text-red-600 mb-4">Error</h1>
         <p className="text-gray-600 dark:text-gray-300 mb-6">{dataError}</p>
-        <a
+        <Link
           href="/"
           className="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
         >
           {t('nav.home')}
-        </a>
+        </Link>
       </div>
     )
   }
-
-  // Get the hymn data
-  const hymnData = useHymnById(number)
 
   if (!hymnData) {
     return (
@@ -49,12 +48,12 @@ export function SongPageContent({ number }: SongPageContentProps) {
         <p className="text-gray-600 dark:text-gray-300">
           {`Song #${number} could not be found in the hymnal.`}
         </p>
-        <a
+        <Link
           href="/"
           className="mt-6 inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
         >
           {t('nav.home')}
-        </a>
+        </Link>
       </div>
     )
   }
@@ -65,12 +64,12 @@ export function SongPageContent({ number }: SongPageContentProps) {
 
       {/* Navigation back to home */}
       <div className="mt-8 text-center">
-        <a
+        <Link
           href="/"
           className="inline-block px-6 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition"
         >
           ← {t('nav.home')}
-        </a>
+        </Link>
       </div>
     </div>
   )

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 
 export function useOffline(): boolean {
-  const [isOffline, setIsOffline] = useState(false)
+  const [isOffline, setIsOffline] = useState(() => !navigator.onLine)
 
   useEffect(() => {
     function handleOnline() {
@@ -13,9 +13,6 @@ export function useOffline(): boolean {
     function handleOffline() {
       setIsOffline(true)
     }
-
-    // Set initial state
-    setIsOffline(!navigator.onLine)
 
     // Add event listeners
     window.addEventListener('online', handleOnline)

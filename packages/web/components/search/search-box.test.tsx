@@ -31,4 +31,24 @@ describe('SearchBox', () => {
 
     expect(screen.getByLabelText('Search hymns')).toBeInTheDocument()
   })
+
+  it('should show clear button after typing and call onQueryChange with empty string when clicked', () => {
+    const mockCallback = jest.fn()
+    render(<SearchBox onQueryChange={mockCallback} />)
+
+    const input = screen.getByPlaceholderText('Search hymns...') as HTMLInputElement
+    fireEvent.change(input, { target: { value: 'test' } })
+
+    const clearButton = screen.getByLabelText('Clear search')
+    expect(clearButton).toBeInTheDocument()
+    fireEvent.click(clearButton)
+    expect(mockCallback).toHaveBeenLastCalledWith('')
+  })
+
+  it('should show spinner when isSearching is true', () => {
+    const mockCallback = jest.fn()
+    const { container } = render(<SearchBox onQueryChange={mockCallback} isSearching={true} />)
+
+    expect(container.querySelector('.animate-spin')).toBeInTheDocument()
+  })
 })

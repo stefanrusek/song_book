@@ -71,7 +71,7 @@ export function SearchResults({ results, query, isLoading }: SearchResultsProps)
 
             {result.matchContext && (
               <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 italic">
-                "{result.matchContext}"
+                &ldquo;{result.matchContext}&rdquo;
               </p>
             )}
           </Link>

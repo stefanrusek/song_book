@@ -1,14 +1,14 @@
+import React from 'react'
 import { render, screen } from '@testing-library/react'
 import type { SubcategoryInfo } from '@songbook/shared/types'
 import { CategoryItem } from './category-item'
 
 // Mock Next.js Link component
 jest.mock('next/link', () => {
-  return ({ children, href }: any) => (
-    <a href={href} data-testid="category-item-link">
-      {children}
-    </a>
-  )
+  function MockLink({ children, href }: { children: React.ReactNode; href: string }) {
+    return <a href={href} data-testid="category-item-link">{children}</a>
+  }
+  return MockLink
 })
 
 // Mock language provider

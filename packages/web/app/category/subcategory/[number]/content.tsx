@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useHymns, useCategories } from '@/providers/hymn-provider'
 import { useLanguage } from '@/providers/language-provider'
 import { SongCard } from '@/components/song/song-card'
@@ -38,12 +39,12 @@ export function SubcategoryPageContent({
       <div className="max-w-3xl mx-auto px-4 py-12 text-center">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('song.notFound')}</h1>
         <p className="text-gray-600 dark:text-gray-300">Subcategory not found.</p>
-        <a
+        <Link
           href="/"
           className="mt-6 inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
         >
           {t('nav.home')}
-        </a>
+        </Link>
       </div>
     )
   }
@@ -58,9 +59,9 @@ export function SubcategoryPageContent({
     <div className="max-w-6xl mx-auto px-4 py-8 md:py-12">
       {/* Breadcrumb */}
       <div className="mb-8">
-        <a href="/" className="text-blue-600 hover:text-blue-700">
+        <Link href="/" className="text-blue-600 hover:text-blue-700">
           {t('nav.home')}
-        </a>
+        </Link>
         <span className="mx-2 text-gray-400 dark:text-gray-500">›</span>
         <span className="text-gray-600 dark:text-gray-300">{categoryName}</span>
         <span className="mx-2 text-gray-400 dark:text-gray-500">›</span>
@@ -90,12 +91,12 @@ export function SubcategoryPageContent({
 
       {/* Back button */}
       <div className="mt-12 text-center">
-        <a
+        <Link
           href="/"
           className="inline-block px-6 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition"
         >
           ← {t('nav.home')}
-        </a>
+        </Link>
       </div>
     </div>
   )

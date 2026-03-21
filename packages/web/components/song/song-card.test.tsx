@@ -1,9 +1,13 @@
+import React from 'react'
 import { render, screen } from '@testing-library/react'
 import type { Hymn } from '@songbook/shared/types'
 import { SongCard } from './song-card'
 
 jest.mock('next/link', () => {
-  return ({ children, href }: any) => <a href={href}>{children}</a>
+  function MockLink({ children, href }: { children: React.ReactNode; href: string }) {
+    return <a href={href}>{children}</a>
+  }
+  return MockLink
 })
 
 // Mock language provider
@@ -53,5 +57,11 @@ describe('SongCard', () => {
   it('should not show checkmark when not highlighted', () => {
     render(<SongCard hymn={mockHymn} isHighlighted={false} />)
     expect(screen.queryByText('✓')).not.toBeInTheDocument()
+  })
+
+  it('should display key when hymn has key property', () => {
+    const hymnWithKey = { ...mockHymn, key: 'D major' }
+    render(<SongCard hymn={hymnWithKey} />)
+    expect(screen.getByText(/D major/)).toBeInTheDocument()
   })
 })

@@ -18,7 +18,7 @@ jest.mock('@/providers/language-provider', () => ({
 }))
 
 jest.mock('./verse-display', () => ({
-  VerseDisplay: ({ text }: any) => <div>{text?.content || text}</div>,
+  VerseDisplay: ({ text }: { text: { content: string } | string }) => <div>{typeof text === 'object' ? text.content : text}</div>,
 }))
 
 jest.mock('./category-badge', () => ({
@@ -67,5 +67,24 @@ describe('SongDetails', () => {
     const { container } = render(<SongDetails hymn={mockHymn} />)
     const choruses = container.querySelectorAll('.bg-blue-50')
     expect(choruses.length).toBeGreaterThan(0)
+  })
+
+  it('should render translator when present', () => {
+    const hymnWithTranslator = { ...mockHymn, translator: 'Translator Name' }
+    render(<SongDetails hymn={hymnWithTranslator} />)
+    expect(screen.getByText('Translator Name')).toBeInTheDocument()
+  })
+
+  it('should render verse labels when multiple verses', () => {
+    const hymnWithMultipleVerses = {
+      ...mockHymn,
+      verses: [
+        { type: 'verse', content: 'First verse content' },
+        { type: 'verse', content: 'Second verse content' },
+      ],
+    }
+    render(<SongDetails hymn={hymnWithMultipleVerses} />)
+    const verseLabels = screen.getAllByText(/^Verse \d$/)
+    expect(verseLabels.length).toBe(2)
   })
 })

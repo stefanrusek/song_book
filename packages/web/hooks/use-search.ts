@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useHymns } from '@/providers/hymn-provider'
 import type { SearchResult } from '@songbook/shared/types'
 import { searchHymns } from '@/lib/search-utils'
@@ -16,7 +16,6 @@ export function useSearch(query: string): {
   hasQuery: boolean
 } {
   const hymns = useHymns()
-  const [isSearching, setIsSearching] = useState(false)
 
   // Debounce the query
   const debouncedQuery = useDebounce(query, 300)
@@ -27,16 +26,12 @@ export function useSearch(query: string): {
       return []
     }
 
-    setIsSearching(true)
-    const searchResults = searchHymns(hymns, debouncedQuery)
-    setIsSearching(false)
-
-    return searchResults
+    return searchHymns(hymns, debouncedQuery)
   }, [debouncedQuery, hymns])
 
   return {
     results,
-    isSearching: isSearching && debouncedQuery !== query,
+    isSearching: query !== debouncedQuery,
     hasQuery: query.length > 0,
   }
 }

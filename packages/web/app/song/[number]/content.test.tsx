@@ -11,12 +11,12 @@ const mockHymn = {
   verses: [{ type: 'verse', content: 'Test verse' }],
 }
 
+const mockUseHymnById = jest.fn()
+const mockUseHymnLoading = jest.fn()
+
 jest.mock('@/providers/hymn-provider', () => ({
-  useHymnById: (id: number) => (id === 42 ? mockHymn : null),
-  useHymnLoading: () => ({
-    isLoading: false,
-    error: null,
-  }),
+  useHymnById: (...args: unknown[]) => mockUseHymnById(...args),
+  useHymnLoading: () => mockUseHymnLoading(),
 }))
 
 jest.mock('@/providers/language-provider', () => ({
@@ -33,10 +33,15 @@ jest.mock('@/providers/language-provider', () => ({
 }))
 
 jest.mock('@/components/song/song-details', () => ({
-  SongDetails: ({ hymn }: any) => <div data-testid="song-details">{hymn.title}</div>,
+  SongDetails: ({ hymn }: { hymn: { title: string } }) => <div data-testid="song-details">{hymn.title}</div>,
 }))
 
 describe('SongPageContent', () => {
+  beforeEach(() => {
+    mockUseHymnLoading.mockReturnValue({ isLoading: false, error: null })
+    mockUseHymnById.mockImplementation((id: number) => (id === 42 ? mockHymn : null))
+  })
+
   it('should render song details when hymn exists', () => {
     render(<SongPageContent number={42} numberStr="042" />)
 
@@ -44,20 +49,19 @@ describe('SongPageContent', () => {
   })
 
   it('should display loading state when loading', () => {
-    jest.mock('@/providers/hymn-provider', () => ({
-      useHymnLoading: () => ({
-        isLoading: true,
-        error: null,
-      }),
-    }))
-
+    mockUseHymnLoading.mockReturnValue({ isLoading: true, error: null })
     render(<SongPageContent number={42} numberStr="042" />)
 
-    // Should show loading spinner
-    const spinner = document.querySelector('.animate-spin')
-    if (spinner) {
-      expect(spinner).toBeInTheDocument()
-    }
+    expect(screen.getByText('Searching...')).toBeInTheDocument()
+    expect(document.querySelector('.animate-spin')).toBeInTheDocument()
+  })
+
+  it('should display error state when data error occurs', () => {
+    mockUseHymnLoading.mockReturnValue({ isLoading: false, error: 'Failed to load data' })
+    render(<SongPageContent number={42} numberStr="042" />)
+
+    expect(screen.getByText('Failed to load data')).toBeInTheDocument()
+    expect(screen.getByText('Error')).toBeInTheDocument()
   })
 
   it('should display not found message when hymn does not exist', () => {

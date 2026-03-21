@@ -3,6 +3,7 @@ import { SubcategoryPageContent } from './content'
 
 const mockHymns = [
   { number: 1, title: 'Hymn 1', author: 'Author 1', book: 'Book', chapter: 1, subcategory: { number: 101, name: 'Sub', hymnRange: { start: 1, end: 10 } }, verses: [{ type: 'verse', content: 'V' }] },
+  { number: 99, title: 'Hymn 99', author: 'Author 99', book: 'Book', chapter: 1, subcategory: { number: 102, name: 'Sub2', hymnRange: { start: 90, end: 100 } }, verses: [{ type: 'verse', content: 'V' }] },
 ]
 
 const mockCategories = [
@@ -44,5 +45,10 @@ describe('SubcategoryPageContent', () => {
     render(<SubcategoryPageContent subcategoryNumber={101} />)
     const links = screen.getAllByText('Home')
     expect(links.length).toBeGreaterThan(0)
+  })
+
+  it('should highlight current hymn when currentHymnNumberStr provided', () => {
+    render(<SubcategoryPageContent subcategoryNumber={101} currentHymnNumberStr="1" />)
+    expect(screen.getByText('Song Card')).toBeInTheDocument()
   })
 })

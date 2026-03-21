@@ -8,7 +8,7 @@ jest.mock('@/providers/hymn-provider', () => ({
 }))
 
 jest.mock('@/lib/search-utils', () => ({
-  searchHymns: (hymns: any[]) => hymns.map(h => ({ hymn: { number: h.number, title: h.title }, matchType: 'title', matchContext: 'context', relevance: 0.9 })),
+  searchHymns: (hymns: { number: number; title: string }[]) => hymns.map(h => ({ hymn: { number: h.number, title: h.title }, matchType: 'title', matchContext: 'context', relevance: 0.9 })),
 }))
 
 jest.mock('./use-debounce', () => ({
@@ -44,5 +44,16 @@ describe('useSearch', () => {
   it('should be a valid search hook', () => {
     const { result } = renderHook(() => useSearch(''))
     expect(result.current.hasQuery).toBe(false)
+  })
+
+  it('should return results for non-empty query', () => {
+    const { result } = renderHook(() => useSearch('Hymn'))
+    expect(result.current.results.length).toBeGreaterThan(0)
+    expect(result.current.hasQuery).toBe(true)
+  })
+
+  it('should return isSearching false when query equals debouncedQuery', () => {
+    const { result } = renderHook(() => useSearch('test'))
+    expect(result.current.isSearching).toBe(false)
   })
 })
